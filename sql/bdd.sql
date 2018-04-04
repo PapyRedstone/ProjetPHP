@@ -1,10 +1,9 @@
-CREATE DATABASE NACA;
-USE NACA;
+USE user1;
 
 DROP TABLE IF EXISTS parametre;
 DROP TABLE IF EXISTS cambrure;
 
-CREATE TABLE parametre{
+CREATE TABLE parametre(
     id INT NOT NULL auto_increment,
     libelle VARCHAR(128),
     corde FLOAT NOT NULL,
@@ -18,10 +17,10 @@ CREATE TABLE parametre{
     fic_csv VARCHAR(128),
 
     PRIMARY KEY(id)
-}
+)
 engine = innodb;
 
-CREATE TABLE cambrure{
+CREATE TABLE cambrure(
     id INT NOT NULL auto_increment,
     x FLOAT NOT NULL,
     t FLOAT NOT NULL,
@@ -33,7 +32,7 @@ CREATE TABLE cambrure{
 
     PRIMARY KEY(id),
     FOREIGN KEY(id_param) REFERENCES parametre(id)
-}
+)
 engine = innodb;
 
 set autocommit = 0;
