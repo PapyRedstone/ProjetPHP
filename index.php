@@ -4,7 +4,9 @@
   </head>
   <body>
 <?php
-require("jpgraph/jpgraph.php");
+require_once "jpgraph/jpgraph.php";
+require_once "jpgraph/jpgraph_line.php";
+//require_once("jpgraph/jpgraph_bar.php");
 
 $width = 600; $height = 200;
  
@@ -17,22 +19,22 @@ $graph = new Graph($width,$height);
 $graph->SetScale('intint');
  
 // Setup a title for the graph
-//$graph->title->Set('data');
+$graph->title->Set('data');
  
 // Setup titles and X-axis labels
-//$graph->xaxis->title->Set('annees');
- 
+$graph->xaxis->title->Set('annees');
+
 // Setup Y-axis title
-//$graph->yaxis->title->Set('personnes');
+$graph->yaxis->title->Set('personnes');
  
 // Create the linear plot
-//$lineplot=new LinePlot(array(24,20));
+$lineplot=new LinePlot(array(24,20));
  
 // Add the plot to the graph
-//$graph->Add($lineplot);
- 
+$graph->Add($lineplot);
+
 // Display the graph
-//$graph->Stroke();
+$graph->Stroke();
 
 ?>
   </body>

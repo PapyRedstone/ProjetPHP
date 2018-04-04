@@ -134,7 +134,7 @@ define('DEFAULT_THEME_CLASS', 'UniversalTheme');
 
 define('SUPERSAMPLING', true);
 define('SUPERSAMPLING_SCALE', 1);
-/*
+
 define('ANTIALIASING', false);
  
 if(!ANTIALIASING){
@@ -142,5 +142,5 @@ if(!ANTIALIASING){
         return true;
     }
 }
-*/
+
 ?>
