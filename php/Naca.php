@@ -7,11 +7,14 @@ class Naca{
   private $Xg;
   private $parametre;
   private $cambrures;
+  private $db;
 
   function __construct($db,$id){
-    $this->parametre = $db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
-    //var_dump($this->parametre);
- echo $this->parametre;
+    $this->db = $db;
+    $this->parametre = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
+    echo $this->parametre."<br>";
+    $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE id_param = $id",null,"Cambrure");
+    echo $this->cambrures[0];
   }
 }
 ?>
