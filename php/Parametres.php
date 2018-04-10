@@ -65,6 +65,15 @@ class Parametres{
         return $this->date;
     }
 
+    public function getFic_img(){
+
+        return $this->fic_img;
+    }
+
+    public function getFic_csv(){
+
+        return $this->fic_csv;
+    }
 }
 
 ?>
