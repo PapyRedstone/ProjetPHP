@@ -14,7 +14,7 @@ class Parametres{
 
     function __toString()
     {
-        return "$this->id, $this->libelle, $this->corde, $this->tMaxPercent, $this->tMaxmm, $this->fMaxPercent, $this->fMaxmm, $this->nbPoints, $this->date";
+        return "libelle = $this->libelle, corde = $this->corde, tMaxPercent = $this->tMaxPercent, tMaxmm = $this->tMaxmm, fMaxPercent = $this->fMaxPercent, fMaxmm = $this->fMaxmm, nbPoints = $this->nbPoints, date = $this->date";
     }
 
     public function getId(){
