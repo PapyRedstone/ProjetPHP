@@ -1,0 +1,15 @@
+<?php
+require "Paramatres.php";
+require "Cambrure.php";
+
+class Naca{
+  private $Yg;
+  private $Xg;
+  private $parametre;
+  private $cambrures;
+
+  function __construct($db,$id){
+    $parametre = $db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
+  }  
+}
+?>
