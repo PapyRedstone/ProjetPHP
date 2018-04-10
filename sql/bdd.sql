@@ -1,7 +1,8 @@
 USE user1;
 
-DROP TABLE IF EXISTS parametre;
 DROP TABLE IF EXISTS cambrure;
+DROP TABLE IF EXISTS parametre;
+
 
 CREATE TABLE parametre(
     id INT NOT NULL auto_increment,
