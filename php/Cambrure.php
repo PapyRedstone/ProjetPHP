@@ -10,7 +10,7 @@ class Cambrure {
   private $igX;
 
   function __toString(){
-    return "x= $this->x, f(x) = $this->f, t(x) = $this->t, Yintra = $this->yintra, Yextra = $this->yextra, Igx = $this->Igx";
+    return "x= $this->x, f(x) = $this->f, t(x) = $this->t, Yintra = $this->yIntrados, Yextra = $this->yExtrados, Igx = $this->igX";
   }
 
   function getX(){

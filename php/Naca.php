@@ -13,7 +13,10 @@ class Naca{
     $this->db = $db;
     $this->parametre = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
     echo $this->parametre."<br>";
-    $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE id_param = $id",null,"Cambrure");
+    $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
+    /*echo "<pre>";
+    var_dump($this->cambrures);
+    echo "</pre>";*/
     echo $this->cambrures[0];
   }
 }
