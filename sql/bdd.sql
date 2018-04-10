@@ -28,7 +28,6 @@ CREATE TABLE cambrure(
     idParam INT NOT NULL,
     yIntrados FLOAT NOT NULL,
     yExtrados FLOAT NOT NULL,
-    idParametre INT NOT NULL,
     igX FLOAT NOT NULL,
 
     PRIMARY KEY(id),
