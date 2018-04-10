@@ -17,5 +17,5 @@ navBar = '<nav class="navbar navbar-inverse">'+
             '</div>'+
         '</nav>';
 
-header.appendChild(navBar);
+header = navBar.innerHTML;
 body.insertBefore(header, body.childNodes[0]);
