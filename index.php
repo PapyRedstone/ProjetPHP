@@ -9,8 +9,8 @@
 		<title>Nacalculator</title>
 
     <!-- Js Scripts -->
-    <script src="js/jquery.min.js" defer></script>
-		<script src="js/bootstrap.min.js" defer></script>
+    <script type="text/javascript" src="js/jquery.min.js" defer></script>
+		<script type="text/javascript" src="js/bootstrap.min.js" defer></script>
 		<script type="text/javascript" src="js/headerFooter.js" defer></script>
 
   </head>
