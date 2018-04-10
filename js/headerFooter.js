@@ -19,5 +19,5 @@ navBar = '<nav class="navbar navbar-inverse">'+
 
 //header = navBar.innerHTML;
 //body.insertBefore(header, body.childNodes[0]);
-document.getElementsByTagName("body").innerHTML = navBar;
+document.getElementsByTagName("body")[0].innerHTML = navBar;
 console.log(navBar);
