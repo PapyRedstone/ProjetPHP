@@ -25,14 +25,14 @@ CREATE TABLE cambrure(
     x FLOAT NOT NULL,
     t FLOAT NOT NULL,
     f FLOAT NOT NULL,
-    id_param INT NOT NULL,
+    idParam INT NOT NULL,
     yIntrados FLOAT NOT NULL,
     yExtrados FLOAT NOT NULL,
     idParametre INT NOT NULL,
     igX FLOAT NOT NULL,
 
     PRIMARY KEY(id),
-    FOREIGN KEY(id_param) REFERENCES parametre(id)
+    FOREIGN KEY(idParam) REFERENCES parametre(id)
 )
 engine = innodb;
 

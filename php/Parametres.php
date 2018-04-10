@@ -12,6 +12,9 @@ class Parametres{
     private $nbPoints;
     private $date;
 
+    private $fic_img;
+    private $fic_csv;
+
     function __toString()
     {
         return "libelle = $this->libelle, corde = $this->corde, tMaxPercent = $this->tMaxPercent, tMaxmm = $this->tMaxmm, fMaxPercent = $this->fMaxPercent, fMaxmm = $this->fMaxmm, nbPoints = $this->nbPoints, date = $this->date";
@@ -62,6 +65,15 @@ class Parametres{
         return $this->date;
     }
 
+    public function getFic_img(){
+
+        return $this->fic_img;
+    }
+
+    public function getFic_csv(){
+
+        return $this->fic_csv;
+    }
 }
 
 ?>
