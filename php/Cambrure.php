@@ -4,10 +4,10 @@ class Cambrure {
   private $x;
   private $f;
   private $t;
-  private $yintra;
-  private $yextra;
-  private $id_param;
-  private $Igx;
+  private $yIntrados;
+  private $yExtrados;
+  private $idParam;
+  private $igX;
 
   function __toString(){
     return "x= $this->x, f(x) = $this->f, t(x) = $this->t, Yintra = $this->yintra, Yextra = $this->yextra, Igx = $this->Igx";
@@ -22,17 +22,17 @@ class Cambrure {
   function getT(){
     return $this->t;
   }
-  function getYintra(){
-    return $this->yintra;
+  function getYintrados(){
+    return $this->yIntrados;
   }
-  function getYextra(){
-    return $this->yextra;
+  function getYextrados(){
+    return $this->yExtrados;
   }
   function getIdParam(){
-    return $this->id_param;
+    return $this->idParam;
   }
   function getIgx(){
-    return $this->Igx;
+    return $this->igX;
   }
   function getId(){
     return $this->id;
