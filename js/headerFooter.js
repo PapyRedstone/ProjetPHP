@@ -17,7 +17,7 @@ navBar = '<nav class="navbar navbar-default">'+
             /*'</div>'+*/
         '</nav>';
 
-//header = navBar.innerHTML;
-//body.insertBefore(header, body.childNodes[0]);
-document.getElementsByTagName("body")[0].innerHTML = navBar;
+header.innerHTML = navBar;
+body.insertBefore(header, body.childNodes[0]);
+//document.getElementsByTagName("body")[0].innerHTML = navBar;
 console.log(navBar);
