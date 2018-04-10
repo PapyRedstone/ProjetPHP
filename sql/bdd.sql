@@ -3,7 +3,6 @@ USE user1;
 DROP TABLE IF EXISTS cambrure;
 DROP TABLE IF EXISTS parametre;
 
-
 CREATE TABLE parametre(
     id INT NOT NULL auto_increment,
     libelle VARCHAR(128),
@@ -26,6 +25,7 @@ CREATE TABLE cambrure(
     x FLOAT NOT NULL,
     t FLOAT NOT NULL,
     f FLOAT NOT NULL,
+    id_param INT NOT NULL,
     yIntrados FLOAT NOT NULL,
     yExtrados FLOAT NOT NULL,
     idParametre INT NOT NULL,
