@@ -1,9 +1,4 @@
-<html>
-  <head>
-
-  </head>
-  <body>
-<?php
+<html><body><?php
 require_once "jpgraph/jpgraph.php";
 require_once "jpgraph/jpgraph_line.php";
 //require_once("jpgraph/jpgraph_bar.php");
@@ -28,14 +23,11 @@ $graph->xaxis->title->Set('annees');
 $graph->yaxis->title->Set('personnes');
  
 // Create the linear plot
-$lineplot=new LinePlot(array(24,20));
+$lineplot=new LinePlot(array(20,50));
  
 // Add the plot to the graph
 $graph->Add($lineplot);
 
 // Display the graph
 $graph->Stroke();
-
-?>
-  </body>
-</html>
+?></body></html>
