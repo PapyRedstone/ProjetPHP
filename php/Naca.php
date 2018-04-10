@@ -10,6 +10,7 @@ class Naca{
   private $db;
 
   function __construct($db,$id){
+
     $this->db = $db;
     $this->parametre = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
     echo $this->parametre."<br>";
