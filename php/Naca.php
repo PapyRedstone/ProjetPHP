@@ -1,5 +1,5 @@
 <?php
-require "Paramatres.php";
+require "Parametres.php";
 require "Cambrure.php";
 
 class Naca{
@@ -11,6 +11,6 @@ class Naca{
   function __construct($db,$id){
     $this->parametre = $db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres")[0];
 var_dump($this->parametre);
-  }  
+  }
 }
 ?>
