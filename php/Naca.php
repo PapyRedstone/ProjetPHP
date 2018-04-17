@@ -35,13 +35,13 @@ class Naca{
       $X = $x/$c;
       $t = $this->getT($X,$tmmm);
       $f = -4*(pow($X,2)-$X)*$fmmm;
-      $yI = f-t/2;
-      $yE = f+t/2;
+      $yI = $f-$t/2;
+      $yE = $f+$t/2;
 
-      $dS = dX*getT($X+$dX/2);
+      $dS = $dX*$this->getT($X+$dX/2,$tmmm);
 
-      $sommedS += dS;
-      $sommedXdS += dS * $X+$dX/2;
+      $sommedS += $dS;
+      $sommedXdS += $dS * $X+$dX/2;
     }
     $Xg = $sommedXdS / $sommedS;
   }
