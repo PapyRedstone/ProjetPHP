@@ -16,10 +16,10 @@ class Naca{
       return;
     }
     $this->parametre = $r[0];
-    echo $this->parametre."<br>";
+
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
     if(!isset($this->cambrures[0])){
-      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getLibelle(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
+      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
     }
   }
 
@@ -27,7 +27,7 @@ class Naca{
     return -(1.015*pow($X,4)-2.843*pow($X,3)+3.516*pow($X,2)+1.26*$X-2.969*sqrt($X))*$tmmm;
   }
 
-  function calculateCambrure($id,$lib,$c,$tmmm,$fmmm,$nb_points){
+  function calculateCambrure($id,$c,$tmmm,$fmmm,$nb_points){
     $dX = $c/$nb_points;
     $sommedS = 0;
     $sommedXdS = 0;
@@ -38,10 +38,12 @@ class Naca{
       $yI = $f-$t/2;
       $yE = $f+$t/2;
 
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:yi,:ye,:idP,:G)",array("x"=>$x,"t"=>$t,"f"=>$f,"yi"=>$yI,"ye"=>$yE,"idP"=>$id,"G"=>$x+$dX/2));
+
       $dS = $dX*$this->getT($X+$dX/2,$tmmm);
 
       $sommedS += $dS;
-      $sommedXdS += $dS * $X+$dX/2;
+      $sommedXdS += $dS * $x+$dX/2;
     }
     $Xg = $sommedXdS / $sommedS;
   }

@@ -1,4 +1,4 @@
-<html>
+<html style="min-height=100%">
   <head>
 <!-- Meta tags -->
   <meta charset="utf-8" />
@@ -7,6 +7,9 @@
    
    <!-- Title -->
    <title>Nacalculator</title>
+
+   <link href="css\bootstrap.css" rel="stylesheet">
+   
      
    </head>
   <body>
@@ -24,7 +27,7 @@ $n = new Naca($db,2);
 
 <!-- Js Scripts -->
   <script type="text/javascript" src="js/jquery.min.js"></script>
-   <script type="text/javascript" src="js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="js/bootstrap.js"></script>
    <script type="text/javascript" src="js/headerFooter.js"></script>
    
    </body>
