@@ -1,6 +1,8 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
+require_once ('jpgraph/jpgraph.php');
+require_once ('jpgraph/jpgraph_line.php');
 
 class Naca{
   private $Yg;
@@ -44,6 +46,60 @@ class Naca{
       $sommedXdS += $dS * $X+$dX/2;
     }
     $Xg = $sommedXdS / $sommedS;
+  }
+
+  function drawGraph(){
+
+    $arrayX = array();
+    $arrayYextrados = array();
+    $arrayYintrados = array();
+    $i=0;
+
+    foreach($this->cambrures as $cambrure){
+      
+      $arrayX[i] = $this->cambrures->getX();
+      $arrayYextrados[i] = $this->cambrure->getYextrados();
+      $arrayYintrados[i] = $this->cambrure->getYintrados();
+      $i++;
+    }
+    // Setup the graph
+    $graph = new Graph($this->parametre->getCorde() / $this->parametre->getNbPoints(),max($arrayYextrados)*50);
+    $graph->SetScale("textlin");
+
+    $theme_class=new UniversalTheme;
+
+    $graph->SetTheme($theme_class);
+    $graph->img->SetAntiAliasing(false);
+    $graph->title->Set('Filled Y-grid');
+    $graph->SetBox(false);
+
+    $graph->img->SetAntiAliasing();
+
+    $graph->yaxis->HideZeroLabel();
+    $graph->yaxis->HideLine(false);
+    $graph->yaxis->HideTicks(false,false);
+
+    $graph->xgrid->Show();
+    $graph->xgrid->SetLineStyle("solid");
+    $graph->xaxis->SetTickLabels(array('A','B','C','D'));
+    $graph->xgrid->SetColor('#E3E3E3');
+
+    // Create the first line
+    $p1 = new LinePlot($arrayYextrados);
+    $graph->Add($p1);
+    $p1->SetColor("#6495ED");
+    $p1->SetLegend('Y Extrados');
+
+    // Create the second line
+    $p2 = new LinePlot($arrayYintrados);
+    $graph->Add($p2);
+    $p2->SetColor("#FF1493");
+    $p2->SetLegend('Y Extrados');
+
+    $graph->legend->SetFrameWeight(1);
+
+    // Output line
+    $graph->Stroke();
   }
 }
 ?>
