@@ -3,6 +3,7 @@ require "Parametres.php";
 require "Cambrure.php";
 
 class Naca{
+  private $id;
   private $Yg;
   private $Xg;
   private $parametre;
@@ -10,16 +11,25 @@ class Naca{
   private $db;
 
   function __construct($db,$id){
+    $this->id = $id;
     $this->db = $db;
     $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
     if(!isset($r[0])){
+      echo "Les parametres n'existent pas<br>";
       return;
     }
     $this->parametre = $r[0];
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
     if(!isset($this->cambrures[0])){
-      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
+      echo isset($this->cambrures[0])." <br><pre>";
+      var_dump($this->cambrures);
+      var_dump($this->parametre);
+      echo "</pre>";
+      $this->calculateCambrure();
+    }
+    else{
+      echo "Deja calculer<br>";
     }
   }
 
@@ -27,7 +37,15 @@ class Naca{
     return -(1.015*pow($X,4)-2.843*pow($X,3)+3.516*pow($X,2)+1.26*$X-2.969*sqrt($X))*$tmmm;
   }
 
-  function calculateCambrure($id,$c,$tmmm,$fmmm,$nb_points){
+  function calculateCambrure(){
+    $id = $this->parametre->getId();
+    $c = $this->parametre->getCorde();
+    $tmmm = $this->parametre->getTMaxmm();
+    $fmmm = $this->parametre->getFMaxmm();
+    $nb_points = $this->parametre->getNbPoints();
+    
+    $this->db->execute("DELETE FROM cambrure WHERE idParam = :id",array("id"=>$id));
+    
     $dX = $c/$nb_points;
     $sommedS = 0;
     $sommedXdS = 0;
@@ -46,6 +64,15 @@ class Naca{
       $sommedXdS += $dS * $x+$dX/2;
     }
     $Xg = $sommedXdS / $sommedS;
+
+    createImg();
+    createCSV();
+  }
+
+  function createImg(){}
+
+  function createCSV(){
+    
   }
 }
 ?>
