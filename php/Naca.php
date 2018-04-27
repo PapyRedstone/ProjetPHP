@@ -1,8 +1,8 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
-require_once ('jpgraph/jpgraph.php');
-require_once ('jpgraph/jpgraph_line.php');
+require_once ('jpgraph-4.2.0/jpgraph.php');
+require_once ('jpgraph-4.2.0/jpgraph_line.php');
 
 class Naca{
   private $id;
@@ -33,7 +33,7 @@ class Naca{
       $this->calculateCambrure();
     }
     else{
-      echo "Deja calculer<br>";
+      echo "Deja calculer<br>#Voltaire";
     }
   }
 
