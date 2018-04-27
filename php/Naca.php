@@ -33,7 +33,7 @@ class Naca{
       $this->calculateCambrure();
     }
     else{
-      echo "Deja calculer<br>#Voltaire";
+      echo "Deja calculer #Voltaire<br>";
     }
   }
 
@@ -65,7 +65,7 @@ class Naca{
     createCSV();
   }
 
-  function createImg(){}
+  function createImg(){}//pas besoin
 
   function createCSV(){
     

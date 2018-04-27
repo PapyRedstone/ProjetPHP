@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html style="min-height=100%">
   <head>
 <!-- Meta tags -->
@@ -21,15 +22,16 @@
   <body>
    <header></header>
 
-    <?php
-      require 'php/database.php';
-      require "php/Naca.php";
-
-      $db = new Database();
-      $n = new Naca($db,2);
-      $n -> drawGraph();
-      
-    ?>
+    <form action="php/form.php" method="POST">
+        Libelle : <input type="text" name="libelle"><br>
+        Corde : <input type="text" name="corde"><br><br>
+        t maximum (mm) : <input type="text" name="tMaxmm"><br>
+        t maximum (%) : <input type="text" name="tMaxPercent"><br><br>
+        f maxium (mm) : <input type="text" name="fMaxmm"><br>
+        f maximum (%) : <input type="text" name="fMaxPercent"><br><br>
+        Nombre de points : <input type="text" name="nbPoints"><br><br>
+        <input type="submit" value="Valider"/><br>
+    </form>
 
     <footer></footer>
 
