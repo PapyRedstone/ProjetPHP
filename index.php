@@ -9,26 +9,28 @@
    <title>Nacalculator</title>
 
    <link href="css\bootstrap.css" rel="stylesheet">
-   
+
+   <!-- Js Scripts -->
+
+   <script type="text/javascript" src="js/jquery.min.js" defer></script>
+  <script type="text/javascript" src="js/bootstrap.js" defer></script>
+   <script type="text/javascript" src="js/headerFooter.js" defer></script>
+
      
-   </head>
+  </head>
   <body>
    <header></header>
+
     <?php
-   require 'php/database.php';
-require "php/Naca.php";
+      require 'php/database.php';
+      require "php/Naca.php";
 
-$db = new Database();
+      $db = new Database();
+      $n = new Naca($db,2);
+      $n -> drawGraph();
+    ?>
 
-$n = new Naca($db,2);
-?>
+    <footer></footer>
 
-<footer></footer>
-
-<!-- Js Scripts -->
-  <script type="text/javascript" src="js/jquery.min.js"></script>
-   <script type="text/javascript" src="js/bootstrap.js"></script>
-   <script type="text/javascript" src="js/headerFooter.js"></script>
-   
    </body>
 </html>

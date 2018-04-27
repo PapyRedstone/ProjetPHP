@@ -14,7 +14,10 @@ class Naca{
   function __construct($db,$id){
     $this->db = $db;
     $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
+
+
     if(!isset($r[0])){
+      error_log(' /!\ QUERY RESULT FOR "PARAMETRES" NUMBERED '.$id.' IS NULL /!\ ');
       return;
     }
     $this->parametre = $r[0];
@@ -30,6 +33,7 @@ class Naca{
   }
 
   function calculateCambrure($id,$c,$tmmm,$fmmm,$nb_points){
+
     $dX = $c/$nb_points;
     $sommedS = 0;
     $sommedXdS = 0;
@@ -40,8 +44,7 @@ class Naca{
       $yI = $f-$t/2;
       $yE = $f+$t/2;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:yi,:ye,:idP,:G)",array("x"=>$x,"t"=>$t,"f"=>$f,"yi"=>$yI,"ye"=>$yE,"idP"=>$id,"G"=>$x+$dX/2));
-
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:G)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"G"=>$x+$dX/2));
       $dS = $dX*$this->getT($X+$dX/2,$tmmm);
 
       $sommedS += $dS;
@@ -59,49 +62,53 @@ class Naca{
 
     foreach($this->cambrures as $cambrure){
       
-      $arrayX[i] = $this->cambrures->getX();
-      $arrayYextrados[i] = $this->cambrure->getYextrados();
-      $arrayYintrados[i] = $this->cambrure->getYintrados();
+      $arrayX[$i] = $cambrure->getX();
+
+      $arrayYextrados[$i] = $cambrure->getYextrados();
+      $arrayYintrados[$i] = $cambrure->getYintrados();
       $i++;
     }
-    // Setup the graph
-    $graph = new Graph($this->parametre->getCorde() / $this->parametre->getNbPoints(),max($arrayYextrados)*50);
-    $graph->SetScale("textlin");
+
+    //GRAPHIQUE
+    $graph = new Graph(500);
+    $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i]);
 
     $theme_class=new UniversalTheme;
 
     $graph->SetTheme($theme_class);
     $graph->img->SetAntiAliasing(false);
-    $graph->title->Set('Filled Y-grid');
+    $graph->title->Set($this->parametre->getLibelle());
     $graph->SetBox(false);
 
-    $graph->img->SetAntiAliasing();
-
+    // Axe des ordonnées
     $graph->yaxis->HideZeroLabel();
     $graph->yaxis->HideLine(false);
-    $graph->yaxis->HideTicks(false,false);
-
+    $graph->yaxis->HideTicks(true,false);
     $graph->xgrid->Show();
     $graph->xgrid->SetLineStyle("solid");
-    $graph->xaxis->SetTickLabels(array('A','B','C','D'));
     $graph->xgrid->SetColor('#E3E3E3');
 
-    // Create the first line
-    $p1 = new LinePlot($arrayYextrados);
+    // Première courbe
+    $p1 = new LinePlot($arrayYextrados, $arrayX);
     $graph->Add($p1);
     $p1->SetColor("#6495ED");
     $p1->SetLegend('Y Extrados');
 
-    // Create the second line
-    $p2 = new LinePlot($arrayYintrados);
+    // Deuxième courbe
+    $p2 = new LinePlot($arrayYintrados, $arrayX);
     $graph->Add($p2);
     $p2->SetColor("#FF1493");
     $p2->SetLegend('Y Extrados');
 
-    $graph->legend->SetFrameWeight(1);
 
-    // Output line
-    $graph->Stroke();
+    $graph->legend->SetFrameWeight(1);
+    $graph->img->SetAntiAliasing();
+
+    // Stockage de l'image
+    $graph->Stroke($this->parametre->getLibelle().".png");
+
+    echo '<img src="'.$this->parametre->getLibelle().'.png"></img>';
+
   }
 }
 ?>
