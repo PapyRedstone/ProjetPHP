@@ -5,6 +5,7 @@ require_once ('jpgraph/jpgraph.php');
 require_once ('jpgraph/jpgraph_line.php');
 
 class Naca{
+  private $id;
   private $Yg;
   private $Xg;
   private $parametre;
@@ -12,6 +13,7 @@ class Naca{
   private $db;
 
   function __construct($db,$id){
+    $this->id = $id;
     $this->db = $db;
     $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
 
@@ -24,7 +26,14 @@ class Naca{
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
     if(!isset($this->cambrures[0])){
-      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
+      echo isset($this->cambrures[0])." <br><pre>";
+      var_dump($this->cambrures);
+      var_dump($this->parametre);
+      echo "</pre>";
+      $this->calculateCambrure();
+    }
+    else{
+      echo "Deja calculer<br>";
     }
   }
 
@@ -51,6 +60,15 @@ class Naca{
       $sommedXdS += $dS * $x+$dX/2;
     }
     $Xg = $sommedXdS / $sommedS;
+
+    createImg();
+    createCSV();
+  }
+
+  function createImg(){}
+
+  function createCSV(){
+    
   }
 
   function drawGraph(){
