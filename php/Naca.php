@@ -61,72 +61,76 @@ class Naca{
     }
     $Xg = $sommedXdS / $sommedS;
 
-    createImg();
-    createCSV();
+    $this->createCSV();
   }
 
-  function createImg(){}//pas besoin
 
   function createCSV(){
-    
+
+    $csvFile = fopen($this->parametre->getFic_csv(), "w");
+    foreach($this->cambrures as $line){
+      $lineCSV = array($line);
+      fputcsv($csvFile, $lineCSV, ';', '"');
+    }
+    fclose($csvFile);
   }
 
 //ADRIEN
-  function drawGraph(){
+  function drawGraph($size, $force = false){
 
-    $arrayX = array();
-    $arrayYextrados = array();
-    $arrayYintrados = array();
-    $i=0;
+    if(!file_exists($this->parametre->getFic_img()) || $force){ //c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
+      $arrayX = array();
+      $arrayYextrados = array();
+      $arrayYintrados = array();
+      $i=0;
 
-    foreach($this->cambrures as $cambrure){
-      
-      $arrayX[$i] = $cambrure->getX();
+      foreach($this->cambrures as $cambrure){
+        
+        $arrayX[$i] = $cambrure->getX();
 
-      $arrayYextrados[$i] = $cambrure->getYextrados();
-      $arrayYintrados[$i] = $cambrure->getYintrados();
-      $i++;
+        $arrayYextrados[$i] = $cambrure->getYextrados();
+        $arrayYintrados[$i] = $cambrure->getYintrados();
+        $i++;
+      }
+
+      //GRAPHIQUE
+      $graph = new Graph($size, 0.4*$size);
+      $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i]);
+      $graph->SetShadow();
+      $theme_class=new UniversalTheme;
+
+      $graph->SetTheme($theme_class);
+      $graph->img->SetAntiAliasing();
+      $graph->title->Set($this->parametre->getLibelle().' - '.$this->parametre->getDate());
+      $graph->SetBox(false);
+
+      // Axe des ordonnées
+      $graph->yaxis->HideZeroLabel();
+      $graph->yaxis->HideLine(false);
+      $graph->yaxis->HideTicks(false,false);
+      $graph->xgrid->Show();
+      $graph->xgrid->SetLineStyle("solid");
+      $graph->xgrid->SetColor('#E3E3E3');
+
+      // Première courbe
+      $p1 = new LinePlot($arrayYextrados, $arrayX);
+      $graph->Add($p1);
+      $p1->SetColor($this->parametre->getIntradosColor());
+      $p1->SetLegend('Y Extrados');
+
+      // Deuxième courbe
+      $p2 = new LinePlot($arrayYintrados, $arrayX);
+      $graph->Add($p2);
+      $p2->SetColor($this->parametre->getExtradosColor());
+      $p2->SetLegend('Y Intrados');
+
+
+      $graph->legend->SetFrameWeight(1);
+
+      // Stockage de l'image
+      $graph->Stroke($this->parametre->getFic_img());
     }
-
-    //GRAPHIQUE
-    $graph = new Graph(500);
-    $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i]);
-
-    $theme_class=new UniversalTheme;
-
-    $graph->SetTheme($theme_class);
-    $graph->img->SetAntiAliasing();
-    $graph->title->Set($this->parametre->getLibelle().' - '.$this->parametre->getDate());
-    $graph->SetBox(false);
-
-    // Axe des ordonnées
-    $graph->yaxis->HideZeroLabel();
-    $graph->yaxis->HideLine(false);
-    $graph->yaxis->HideTicks(false,false);
-    $graph->xgrid->Show();
-    $graph->xgrid->SetLineStyle("solid");
-    $graph->xgrid->SetColor('#E3E3E3');
-
-    // Première courbe
-    $p1 = new LinePlot($arrayYextrados, $arrayX);
-    $graph->Add($p1);
-    $p1->SetColor($this->parametre->getIntradosColor());
-    $p1->SetLegend('Y Extrados');
-
-    // Deuxième courbe
-    $p2 = new LinePlot($arrayYintrados, $arrayX);
-    $graph->Add($p2);
-    $p2->SetColor($this->parametre->getExtradosColor());
-    $p2->SetLegend('Y Intrados');
-
-
-    $graph->legend->SetFrameWeight(1);
-
-    // Stockage de l'image
-    $graph->Stroke($this->parametre->getLibelle().".png");
-
-    echo '<img src="'.$this->parametre->getLibelle().'.png"></img>';
-
+    echo '<img src="'.$this->parametre->getFic_img().'"></img>';
   }
 }
 ?>
