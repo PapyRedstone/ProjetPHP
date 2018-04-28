@@ -108,14 +108,14 @@ class Naca{
     // Première courbe
     $p1 = new LinePlot($arrayYextrados, $arrayX);
     $graph->Add($p1);
-    $p1->SetColor("#6495ED");
+    $p1->SetColor($this->parametre->getIntradosColor());
     $p1->SetLegend('Y Extrados');
 
     // Deuxième courbe
     $p2 = new LinePlot($arrayYintrados, $arrayX);
     $graph->Add($p2);
-    $p2->SetColor("#FF1493");
-    $p2->SetLegend('Y Extrados');
+    $p2->SetColor($this->parametre->getExtradosColor());
+    $p2->SetLegend('Y Intrados');
 
 
     $graph->legend->SetFrameWeight(1);

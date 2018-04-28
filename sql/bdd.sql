@@ -15,6 +15,8 @@ CREATE TABLE parametre(
     date DATETIME,
     fic_img VARCHAR(128),
     fic_csv VARCHAR(128),
+    intradosColor VARCHAR(10),
+    extradosColor VARCHAR(10),
 
     PRIMARY KEY(id)
 )

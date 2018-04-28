@@ -11,9 +11,10 @@ class Parametres{
     private $fMaxmm;
     private $nbPoints;
     private $date;
-
     private $fic_img;
     private $fic_csv;
+    private $intradosColor;
+    private $extradosColor;
 
     function __toString()
     {
@@ -73,6 +74,16 @@ class Parametres{
     public function getFic_csv(){
 
         return $this->fic_csv;
+    }
+
+    public function getIntradosColor(){
+
+        return $this->intradosColor;
+    }
+
+    public function getExtradosColor(){
+
+        return $this->extradosColor;
     }
 }
 
