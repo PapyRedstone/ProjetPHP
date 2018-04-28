@@ -6,8 +6,8 @@ $db = new Database();
 $date = new DateTime();
 
 $libelle = str_replace('/', '', $_POST['libelle']);
-$fic_img = $libelle.'.png';
-$fic_csv = $libelle.'.csv';
+$fic_img = 'img_csv/'.$libelle.'.png';
+$fic_csv = 'img_csv/'.$libelle.'.csv';
 
 //Remplacement des ',' par des '.' puis suppression de tous les caractères qui ne sont ni des chiffres ni la première occurence d'un '.'
 $arrayContent = array();
