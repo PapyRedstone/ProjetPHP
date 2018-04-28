@@ -91,11 +91,12 @@ class Naca{
         $arrayYextrados[$i] = $cambrure->getYextrados();
         $arrayYintrados[$i] = $cambrure->getYintrados();
         $i++;
+        
       }
 
       //GRAPHIQUE
       $graph = new Graph($size, 0.4*$size);
-      $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i]);
+      $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i-1]);
       $graph->SetShadow();
       $theme_class=new UniversalTheme;
 
