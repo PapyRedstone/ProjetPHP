@@ -26,7 +26,7 @@
       require "php/Naca.php";
 
       $db = new Database();
-      $n = new Naca($db,2);
+      $n = new Naca($db,4);
       $n -> drawGraph();
       
     ?>

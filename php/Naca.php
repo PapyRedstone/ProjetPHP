@@ -27,10 +27,9 @@ class Naca{
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
     if(!isset($this->cambrures[0])){
       echo isset($this->cambrures[0])." <br><pre>";
-      var_dump($this->cambrures);
-      var_dump($this->parametre);
+
       echo "</pre>";
-      $this->calculateCambrure();
+      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
     }
     else{
       echo "Deja calculer #Voltaire<br>";
