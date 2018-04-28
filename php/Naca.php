@@ -93,8 +93,8 @@ class Naca{
     $theme_class=new UniversalTheme;
 
     $graph->SetTheme($theme_class);
-    $graph->img->SetAntiAliasing(false);
-    $graph->title->Set($this->parametre->getLibelle());
+    $graph->img->SetAntiAliasing();
+    $graph->title->Set($this->parametre->getLibelle().' - '.$this->parametre->getDate());
     $graph->SetBox(false);
 
     // Axe des ordonnées
@@ -119,7 +119,7 @@ class Naca{
 
 
     $graph->legend->SetFrameWeight(1);
-    $graph->img->SetAntiAliasing();
+    //$graph->img->SetAntiAliasing();
 
     // Stockage de l'image
     $graph->Stroke($this->parametre->getLibelle().".png");
