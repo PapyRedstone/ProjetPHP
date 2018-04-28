@@ -1,11 +1,13 @@
 <?php
+//ADRIEN
 require_once "database.php";
 
 $db = new Database();
 $date = new DateTime();
 
 $fic_img = $_POST['libelle'].'.png';
-$fic_csv = $_POST['libelle'].'vsc';
+$fic_csv = $_POST['libelle'].'.csv';
+
 //Remplacement des ',' par des '.'
 $arrayContent = array();
 foreach($_POST as $key => $value){

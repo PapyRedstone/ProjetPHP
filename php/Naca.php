@@ -4,6 +4,7 @@ require "Cambrure.php";
 require_once ('jpgraph-4.2.0/jpgraph.php');
 require_once ('jpgraph-4.2.0/jpgraph_line.php');
 
+//ALEXANDRE
 class Naca{
   private $id;
   private $Yg;
@@ -70,6 +71,7 @@ class Naca{
     
   }
 
+//ADRIEN
   function drawGraph(){
 
     $arrayX = array();
@@ -119,7 +121,6 @@ class Naca{
 
 
     $graph->legend->SetFrameWeight(1);
-    //$graph->img->SetAntiAliasing();
 
     // Stockage de l'image
     $graph->Stroke($this->parametre->getLibelle().".png");

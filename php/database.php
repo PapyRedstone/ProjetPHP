@@ -1,4 +1,5 @@
 <?php
+//ALEXANDRE
 require "constants.php";
 
 /*Classe interfacant la base de donnee PDO
