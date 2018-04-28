@@ -100,7 +100,7 @@ class Naca{
     // Axe des ordonnées
     $graph->yaxis->HideZeroLabel();
     $graph->yaxis->HideLine(false);
-    $graph->yaxis->HideTicks(true,false);
+    $graph->yaxis->HideTicks(false,false);
     $graph->xgrid->Show();
     $graph->xgrid->SetLineStyle("solid");
     $graph->xgrid->SetColor('#E3E3E3');
