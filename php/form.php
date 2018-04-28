@@ -34,11 +34,11 @@ foreach($_POST as $key => $value){
             }
         }
     }
+    $arrayContent[$key] = preg_replace( '/[^[:print:]]/', '',$arrayContent[$key]); // '' est un caractère invisble qui n'est ps accepté par la BDD il faut le supprimer
 }
 
-echo '<pre>';
-var_dump($arrayContent);
-echo '</pre>';
+
+
 // envoi des données saisies
 $db->execute("INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :intradosColor, :extradosColor)",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$fic_img, "fic_csv"=>$fic_csv, "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor']));
 
