@@ -4,7 +4,7 @@ require "Cambrure.php";
 require_once ('jpgraph-4.2.0/jpgraph.php');
 require_once ('jpgraph-4.2.0/jpgraph_line.php');
 
-//ALEXANDRE
+//ALEXANDRE ADRIEN
 class Naca{
   private $id;
   private $Yg;
@@ -78,7 +78,7 @@ class Naca{
 //ADRIEN
   function drawGraph($size, $force = false){
 
-    if(!file_exists($this->parametre->getFic_img()) || $force){ //c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
+    if(!file_exists($this->parametre->getFic_img()) || $force){ //'$force' permet de forcer la création du graphique et c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();
