@@ -33,7 +33,7 @@
       $array = $db->execute("SELECT id, fic_img FROM parametre");
 
       foreach($array as $params){
-        $naca = new Naca($db, $params['id']);
+        $naca = new Naca($db, $params['id'],true);
         echo '<a href="php/showDetails.php?id='.$params['id'].'"><img src="'.$params['fic_img'].'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
       }
 

@@ -13,7 +13,7 @@ class Naca{
   private $cambrures;
   private $db;
 
-  function __construct($db,$id){
+  function __construct($db, $id, $force = false){
     $this->id = $id;
     $this->db = $db;
     $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
@@ -29,11 +29,10 @@ class Naca{
     if(!isset($this->cambrures[0])){
 
       $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
+
     }
-
-    $this->createCSV();
-    $this->drawGraph(800);
-
+      $this->createCSV($force);
+      $this->drawGraph(800, $force);
   }
 
   function getT($X,$tmmm){
@@ -63,14 +62,17 @@ class Naca{
   }
 
 //ADRIEN
-  function createCSV(){
+  function createCSV($force = false){
 
-    $csvFile = fopen($this->parametre->getFic_csv(), "w");
-    foreach($this->cambrures as $line){
-      $lineCSV = array($line);
-      fputcsv($csvFile, $lineCSV, ';', '"');
+    if(!file_exists($this->parametre->getFic_csv()) || $force){
+
+      $csvFile = fopen($this->parametre->getFic_csv(), "w");
+      foreach($this->cambrures as $line){
+        $lineCSV = array($line);
+        fputcsv($csvFile, $lineCSV, ';', '"');
+      }
+      fclose($csvFile);
     }
-    fclose($csvFile);
   }
 
 //ADRIEN
@@ -80,6 +82,8 @@ class Naca{
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();
+      //$arrayXgDot = array();
+      //$arrayYgDot = array();
       $i=0;
 
       foreach($this->cambrures as $cambrure){
@@ -88,9 +92,11 @@ class Naca{
 
         $arrayYextrados[$i] = $cambrure->getYextrados();
         $arrayYintrados[$i] = $cambrure->getYintrados();
+
         $i++;
-        
       }
+      //$arrayYgDot = $cambrure->getYgDot();
+      //$arrayXgDot = $cambrure->getXgDot();
 
       //GRAPHIQUE
       $graph = new Graph($size, 0.4*$size);//le ratio est de 0,4 entre la hauteur et la largeur
@@ -123,7 +129,15 @@ class Naca{
       $p2->SetColor($this->parametre->getExtradosColor());
       $p2->SetLegend('Y Intrados');
 
-
+      // Point G
+      /*
+      $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
+      $graph->Add($p3);
+      //$p3->SetColor('#FF0000');
+      $p3->mark->SetType(MARK_X,'',100);
+      //$p3->mark->SetFillColor('#FF0000');
+      $p3->SetLegend('Centre de gravité');
+      */
       $graph->legend->SetFrameWeight(1);
 
       // Stockage de l'image
