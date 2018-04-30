@@ -64,17 +64,23 @@ function addParametre($arrayContent){
     $db = new Database();
     $date = new DateTime();
 
-    // envoi des données saisies
     $db->execute("INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :intradosColor, :extradosColor)",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor']));
 }
 
-if(formChecking($_POST)){
-    addParametre(formPurify($_POST));
-    //Retour accueil
-    header('Location: /ProjetPHP');
+//ADRIEN
+//fonction de synthèse
+function form($form){
+
+    if(formChecking($form)){
+        addParametre(formPurify($form));
+        //Retour accueil
+        header('Location: /ProjetPHP');
+    }
+    else{
+        echo 'Aucun champ du formulaire ne doit être vide.<br>';
+        echo '<form> <input type="button" value="Retour au formulaire" onclick="history.go(-1)"> </form>';
+    }
 }
-else{
-    echo 'Aucun champ du formulaire ne doit être vide.<br>';
-    echo '<form> <input type="button" value="Retour au formulaire" onclick="history.go(-1)"> </form>';
-}
+
+form($_POST);
 ?>
