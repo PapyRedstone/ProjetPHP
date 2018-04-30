@@ -23,13 +23,24 @@
    <header></header>
 
     <?php
+      //require 'php/headerFooter.php';
       require 'php/database.php';
-      require "php/Naca.php";
+      require 'php/Naca.php';
 
       $db = new Database();
+      $width = 300;
+      $height = $width*0.4;
+      $array = $db->execute("SELECT id, fic_img FROM parametre");
 
-      $n = new Naca($db,5);
-      $n -> drawGraph(500, true);
+      foreach($array as $params){
+        $naca = new Naca($db, $params['id']);
+        echo '<a href="php/showDetails.php?id='.$params['id'].'"><img src="'.$params['fic_img'].'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
+      }
+
+/*
+      $n = new Naca($db,13);
+      $n -> drawGraph(800, true);
+*/
     ?>
 
     <footer></footer>

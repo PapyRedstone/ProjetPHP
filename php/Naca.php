@@ -27,14 +27,13 @@ class Naca{
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
     if(!isset($this->cambrures[0])){
-      echo isset($this->cambrures[0])." <br><pre>";
 
-      echo "</pre>";
       $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
     }
-    else{
-      echo "Deja calculer #Voltaire<br>";
-    }
+
+    $this->createCSV();
+    $this->drawGraph(800);
+
   }
 
   function getT($X,$tmmm){
@@ -61,7 +60,6 @@ class Naca{
     }
     $Xg = $sommedXdS / $sommedS;
 
-    $this->createCSV();
   }
 
 //ADRIEN
@@ -95,7 +93,7 @@ class Naca{
       }
 
       //GRAPHIQUE
-      $graph = new Graph($size, 0.4*$size);
+      $graph = new Graph($size, 0.4*$size);//le ratio est de 0,4 entre la hauteur et la largeur
       $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i-1]);
       $graph->SetShadow();
       $theme_class=new UniversalTheme;
@@ -131,7 +129,6 @@ class Naca{
       // Stockage de l'image
       $graph->Stroke($this->parametre->getFic_img());
     }
-    echo '<img src="'.$this->parametre->getFic_img().'"></img>';
   }
 }
 ?>

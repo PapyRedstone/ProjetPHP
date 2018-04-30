@@ -22,8 +22,8 @@ function formPurify($formArray){
     $libelle = str_replace('/', '', $formArray['libelle']);
     //Le nom de fichier est composé avec un timestamp afin d'éviter qu'un nouveau fichier n'en écrase un ancien de même nom
     $time = time();
-    $fic_img = 'img_csv/'.$libelle.$time.'.png';
-    $fic_csv = 'img_csv/'.$libelle.$time.'.csv';
+    $fic_img = 'img_csv/'.$libelle.'_'.$time.'.png';
+    $fic_csv = 'img_csv/'.$libelle.'_'.$time.'.csv';
 
     $arrayContent = array();
     $arrayContent['fic_img'] = $fic_img;
