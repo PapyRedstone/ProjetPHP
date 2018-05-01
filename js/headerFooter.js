@@ -5,9 +5,13 @@ function winLoad(){
     var header = '<nav class="navbar navbar-expand-lg navbar-light bg-light">'+
 	'<div class="collapse navbar-collapse" id="navbarSupportedContent">'+
 	'<ul class="navbar-nav mr-auto">'+
-	'<li class="nav-item active">'+
-	'<a class="nav-link" href="/ProjetPHP/index.php">Accueil <span class="sr-only">(current)</span></a>'+
-	'</li>'+
+	'<li class="nav-item active">';
+    if((document.location.href).includes("html") || (document.location.href).includes("php")){
+	header += '<a class="nav-link" href="../index.php">Accueil <span class="sr-only">(current)</span></a>';
+    }else{
+	header += '<a class="nav-link" href="index.php">Accueil <span class="sr-only">(current)</span></a>';
+    }
+    header += '</li>'+
 	'<li class="nav-item">';
     if((document.location.href).includes("html")){
 	header += '<a class="nav-link" href="form.html">Ajouter un profil</a>';
@@ -21,7 +25,7 @@ function winLoad(){
     
     $("header").html(header);
 
-    var footer = '<div class="navbar navbar-expand-lg navbar-light bg-light">'+//partie supprimée : style="position: absolute;bottom :0px; width:100%;
+    var footer = '<div class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;bottom :0px; width:100%"'+
 	'<div class="collapse navbar-collapse" id="navbarSupportedContent">'+
 	'<ul class="navbar-nav mr-auto">'+
 	'<li class="nav-item">'+
