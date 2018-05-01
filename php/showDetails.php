@@ -2,7 +2,7 @@
     //ADRIEN
     //Affiche les graphiques en grand format ainsi que les données qui ont permis le calcul
     //Permet de télécharger le fichier CSV et les images des graphiques
-    //Permet de modifier ou de supprimer un enregistrement
+    //Permet d'acceder à la page de modification ou de supprimer un enregistrement
     require 'database.php';
     require "Parametres.php";
 
@@ -20,9 +20,8 @@
     echo 'Télécharger : ';
     echo '<a href ="../'.$parametres[0]->getFic_csv().'" download> <button type="button"> Fichier CSV </button> </a>';
     echo '<a href ="../'.$parametres[0]->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
-    /*
-    echo '<a href ="../'.$parametres[0]->getFic_img().'" > <button type="button"> Modifier le profil </button> </a>';
+    
+    echo '<a href ="../php/modify.php?id='.$_GET['id'].'" > <button type="button"> Modifier le profil </button> </a>';
     echo '<a href ="../'.$parametres[0]->getFic_img().'" > <button type="button"> Supprimer le profil </button> </a>';
-    */
 
 ?>

@@ -26,10 +26,10 @@ class Naca{
     $this->parametre = $r[0];
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
+ ;
     if(!isset($this->cambrures[0])){
 
       $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
-
     }
       $this->createCSV($force);
       $this->drawGraph(800, $force);
@@ -51,7 +51,7 @@ class Naca{
       $yI = $f-$t/2;
       $yE = $f+$t/2;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:G)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"G"=>$x+$dX/2));
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:G, null, null)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"G"=>$x+$dX/2));
       $dS = $dX*$this->getT($X+$dX/2,$tmmm);
 
       $sommedS += $dS;
@@ -134,6 +134,7 @@ class Naca{
       $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
       $graph->Add($p3);
       //$p3->SetColor('#FF0000');
+      $p3->setWeight(5);
       $p3->mark->SetType(MARK_X,'',100);
       //$p3->mark->SetFillColor('#FF0000');
       $p3->SetLegend('Centre de gravité');

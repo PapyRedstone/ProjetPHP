@@ -1,4 +1,7 @@
---ADRIEN
+/*
+ADRIEN
+*/
+
 USE user1;
 
 DROP TABLE IF EXISTS cambrure;
@@ -32,6 +35,8 @@ CREATE TABLE cambrure(
     yIntrados FLOAT NOT NULL,
     yExtrados FLOAT NOT NULL,
     igX FLOAT NOT NULL,
+    xGDot FLOAT,
+    yGDot FLOAT,
 
     PRIMARY KEY(id),
     FOREIGN KEY(idParam) REFERENCES parametre(id)

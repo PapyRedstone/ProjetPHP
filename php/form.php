@@ -47,7 +47,7 @@ function formPurify($formArray){
                 if($c == '.' && !$firstOccurrence){
                     $firstOccurrence = true;
                 }
-                else if($key != 'intradosColor' && $key != 'extradosColor' && $key != 'libelle'){
+                else if($key != 'intradosColor' && $key != 'extradosColor' && $key != 'libelle' && $key != 'exist'){
                     $arrayContent[$key][$i] = '';
                 }
             }
@@ -62,8 +62,11 @@ function formPurify($formArray){
 function addParametre($arrayContent){
 
     $db = new Database();
-    $date = new DateTime();
 
+
+
+    //$r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
+    $date = new DateTime();
     $db->execute("INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :intradosColor, :extradosColor)",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor']));
 }
 
@@ -74,7 +77,7 @@ function form($form){
     if(formChecking($form)){
         addParametre(formPurify($form));
         //Retour accueil
-        header('Location: /ProjetPHP');
+        //header('Location: /ProjetPHP');
     }
     else{
         echo 'Aucun champ du formulaire ne doit être vide.<br>';

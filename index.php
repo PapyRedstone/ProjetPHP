@@ -37,10 +37,10 @@
         echo '<a href="php/showDetails.php?id='.$params['id'].'"><img src="'.$params['fic_img'].'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
       }
 
-/*
-      $n = new Naca($db,13);
-      $n -> drawGraph(800, true);
-*/
+
+      $n = new Naca($db,1);
+      //$n -> drawGraph(800, true);
+
     ?>
 
     <footer></footer>

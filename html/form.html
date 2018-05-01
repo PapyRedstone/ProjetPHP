@@ -11,20 +11,20 @@
    <!-- Title -->
    <title>Nacalculator</title>
 
-   <link href="css\bootstrap.css" rel="stylesheet">
+   <link href="../css/bootstrap.css" rel="stylesheet">
 
    <!-- Js Scripts -->
 
-   <script type="text/javascript" src="js/jquery.min.js" defer></script>
-  <script type="text/javascript" src="js/bootstrap.js" defer></script>
-   <script type="text/javascript" src="js/headerFooter.js" defer></script>
+   <script type="text/javascript" src="../js/jquery.min.js" defer></script>
+  <script type="text/javascript" src="../js/bootstrap.js" defer></script>
+   <script type="text/javascript" src="../js/headerFooter.js" defer></script>
 
      
   </head>
   <body>
    <header></header>
 
-    <form action="php/form.php" method="POST">
+    <form action="../php/form.php" method="POST">
         Libelle : <input type="text" name="libelle"><br>
         Corde (mm): <input type="text" name="corde"><br><br>
         t maximum (mm) : <input type="text" name="tMaxmm"><br>
@@ -34,6 +34,7 @@
         Nombre de points : <input type="text" name="nbPoints"><br><br>
         Couleur de la courbe Y Intrados : <input type="color" name="intradosColor"><br>
         Couleur de la courbe Y Extrados : <input type="color" name="extradosColor"><br><br>
+        <input type="hidden" name="exist" value="false">
         <input type="submit" value="Valider"/><br>
     </form>
 
