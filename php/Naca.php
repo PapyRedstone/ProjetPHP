@@ -69,7 +69,7 @@ class Naca{
       $arraydXgi[] = $x + $dX/2;
       $arraydYgi[] = ($yI + $yE)/2;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$arraydXgi[],"yg"=>$arraydYgi[]);
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$arraydXgi,"yg"=>$arraydYgi));
     }
 
     
