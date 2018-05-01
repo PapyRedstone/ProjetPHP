@@ -52,9 +52,9 @@ class Naca{
     $nb_points = $this->parametre->getNbPoints();
     
     $dX = $c/$nb_points;
-    $arraydSi = array();
-    $arraydXgi = array();
-    $arraydYgi = array();   
+    $sumdS = 0;
+    $sumdXdS = 0;
+    $sumdYdS = 0;
 
     for($x=0;$x<=$c;$x+=$dX){
       $X = $x/$c;
@@ -65,14 +65,19 @@ class Naca{
 
       $dSi = $dX*$this->getT($X+$dX/2,$tmmm);
 
-      $arraydSi[] = $dSi;
-      $arraydXgi[] = $x + $dX/2;
-      $arraydYgi[] = ($yI + $yE)/2;
+      $sumdS += $dSi;
+      $sumdXdS += ($x + $dX/2) * $dSi;
+      $sumdYdS += $f * $dSi;
 
+<<<<<<< HEAD
       $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$arraydXgi,"yg"=>$arraydYgi));
+=======
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>end($arraydXgi),"yg"=>end($arraydYgi)));
+>>>>>>> b706eb1a508255e3eb292449314e38abf8bdfec0
     }
 
-    
+    $this->Xg = $sumdXdS / $sumdS;
+    $this->Yg = $sumdYdS / $sumdS;
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = ".$id,null,"Cambrure");
   }

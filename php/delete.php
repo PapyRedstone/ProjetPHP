@@ -4,12 +4,12 @@ require_once 'database.php';
 function deleteFiles($db){
 
     $paths = $db->execute('SELECT fic_img, fic_csv FROM parametre WHERE id = '.$_GET['id']);
-    var_dump($paths);
+
     //Suppression des fichiers liés aux enregistrements
-    chmod('../'.$paths['fic_img'], 777);
-    unlink('../'.$paths['fic_img']);
-    chmod('../'.$paths['fic_csv'], 777);
-    unlink('../'.$paths['fic_csv']);
+    chmod('../'.$paths[0]['fic_img'], 777);
+    unlink('../'.$paths[0]['fic_img']);
+    chmod('../'.$paths[0]['fic_csv'], 777);
+    unlink('../'.$paths[0]['fic_csv']);
 }
 
 $db = new Database();
