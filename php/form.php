@@ -16,7 +16,7 @@ function formChecking($formArray){
 
 //ADRIEN
 //Purifie les données saisies dans le formulaire
-function formPurify($formArray){
+function formPurify(){
 
     //Supprime les '/' qi sont interdits dans les noms de fichier
     $libelle = str_replace('/', '', $formArray['libelle']);
@@ -82,7 +82,7 @@ function addParametre($arrayContent){
 function form($form){
 
     if(formChecking($form)){
-        addParametre(formPurify($form));
+        addParametre(formPurify());
         //Retour accueil
         header('Location: /ProjetPHP');
     }
