@@ -37,7 +37,7 @@
       }
 
 
-      //$n = new Naca($db,1);
+      $n = new Naca($db,1);
       //$n -> drawGraph(800, true);
 
     ?>
