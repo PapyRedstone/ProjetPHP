@@ -66,8 +66,8 @@ function addParametre($arrayContent){
 
     if($arrayContent['exist'] != 'false'){
 
-        $db->execute("DELETE * FROM cambrure");
-        $db->execute("UPDATE parametre SET `libelle` = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
+        $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$arrayContent['exist']));
+        $db->execute("UPDATE parametre SET libelle = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
 
     }
     else{
@@ -83,7 +83,6 @@ function form($form){
         addParametre(formPurify($form));
         //Retour accueil
         header('Location: /ProjetPHP');
-        echo $form['exist'];
     }
     else{
         echo 'Aucun champ du formulaire ne doit être vide.<br>';
