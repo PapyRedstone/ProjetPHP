@@ -1,8 +1,8 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
-require_once '../jpgraph-4.2.0/jpgraph.php';
-require_once '../jpgraph-4.2.0/jpgraph_line.php';
+require_once "../jpgraph-4.2.0/jpgraph.php";
+require_once "../jpgraph-4.2.0/jpgraph_line.php";
 
 //ALEXANDRE ADRIEN
 class Naca{
@@ -69,11 +69,7 @@ class Naca{
       $sumdXdS += ($x + $dX/2) * $dSi;
       $sumdYdS += $f * $dSi;
 
-<<<<<<< HEAD
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$arraydXgi,"yg"=>$arraydYgi));
-=======
       $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>end($arraydXgi),"yg"=>end($arraydYgi)));
->>>>>>> b706eb1a508255e3eb292449314e38abf8bdfec0
     }
 
     $this->Xg = $sumdXdS / $sumdS;

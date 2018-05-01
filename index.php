@@ -37,12 +37,9 @@
       }
 
 
-<<<<<<< HEAD
-=======
-      $n = new Naca($db,1);
+      //$n = new Naca($db,1);
       //$n -> drawGraph(800, true);
 
->>>>>>> b706eb1a508255e3eb292449314e38abf8bdfec0
     ?>
 
     <footer></footer>
