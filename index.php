@@ -23,7 +23,6 @@
    <header></header>
 
     <?php
-      //require 'php/headerFooter.php';
       require 'php/database.php';
       require 'php/Naca.php';
 

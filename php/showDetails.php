@@ -1,3 +1,26 @@
+<!--ADRIEN-->
+
+<html style="min-height=100%">
+    <head>
+<!-- Meta tags -->
+        <meta charset="utf-8" />
+        <meta name="author" content="Febvre_Lebourgeois" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    
+    <!-- Title -->
+        <title>Nacalculator</title>
+
+        <link href="../css/bootstrap.css" rel="stylesheet">
+
+    <!-- Js Scripts -->
+
+        <script type="text/javascript" src="../js/jquery.min.js" defer></script>
+        <script type="text/javascript" src="../js/bootstrap.js" defer></script>
+        <script type="text/javascript" src="../js/headerFooter.js" defer></script>
+
+  </head>
+  <body>
+   <header></header>
 <?php
     //ADRIEN
     //Affiche les graphiques en grand format ainsi que les données qui ont permis le calcul
@@ -22,6 +45,11 @@
     echo '<a href ="../'.$parametres[0]->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
     
     echo '<a href ="../php/modify.php?id='.$_GET['id'].'" > <button type="button"> Modifier le profil </button> </a>';
-    echo '<a href ="../'.$parametres[0]->getFic_img().'" > <button type="button"> Supprimer le profil </button> </a>';
+    echo '<a href ="../php/delete.php?id='.$_GET['id'].'&sure=false" > <button type="button"> Supprimer le profil </button> </a>';
 
 ?>
+
+    <footer></footer>
+
+</body>
+</html>

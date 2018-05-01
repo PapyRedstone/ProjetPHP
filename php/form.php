@@ -1,6 +1,7 @@
 <?php
 require_once "database.php";
 require "Naca.php";
+require_once "delete.php";
 
 //ADRIEN
 //Vérifie que le formulaire a été rempli
@@ -17,7 +18,7 @@ function formChecking($formArray){
 
 //ADRIEN
 //Purifie les données saisies dans le formulaire
-function formPurify($formArray){
+function formPurify(){
 
     //Supprime les '/' qi sont interdits dans les noms de fichier
     $libelle = str_replace('/', '', $formArray['libelle']);
@@ -69,9 +70,13 @@ function addParametre($arrayContent){
     $db = new Database();
     $date = new DateTime();
 
+    //S'il s'agit de la modification d'un enregistrement existant:
     if($arrayContent['exist'] != 'false'){
-        $db->execute("DELETE * FROM cambrure");
-        $db->execute("UPDATE parametre SET `libelle` = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxPercent']/100*$arrayContent['corde'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxPercent']/100*$arrayContent['corde'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
+        deleteFiles($db);
+        //Suppression des anciens point calculés
+        $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$arrayContent['exist']));
+        //Modification des parametres de en BDD
+        $db->execute("UPDATE parametre SET libelle = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
 
         $naca = new Naca($db,$arrayContent['exist']);
     }
@@ -89,6 +94,7 @@ function addParametre($arrayContent){
 //ADRIEN
 //fonction de synthèse
 function form($form){
+
   if(formChecking($form)){
     $array = addParametre(formPurify($form));
     //Retour accueil
