@@ -1,5 +1,6 @@
 <?php
 require_once "database.php";
+require "Naca.php";
 
 //ADRIEN
 //Vérifie que le formulaire a été rempli
@@ -30,7 +31,7 @@ function formPurify($formArray){
     $arrayContent['fic_csv'] = $fic_csv;
 
     //Remplacement des ',' par des '.' puis suppression de tous les caractères qui ne sont ni des chiffres ni la première occurence d'un '.'
-    foreach($_POST as $key => $value){
+    foreach($formArray as $key => $value){
 
         $arrayContent[$key] = str_replace(',', '.', $value);
 
@@ -54,6 +55,10 @@ function formPurify($formArray){
         }
         $arrayContent[$key] = preg_replace( '/[^[:print:]]/', '',$arrayContent[$key]); // '' est un caractère invisble qui n'est ps accepté par la BDD il faut le supprimer
     }
+
+    $arrayContent["tMaxmm"] = $arrayContent['tMaxPercent']/100*$arrayContent['corde'];
+    $arrayContent["fMaxmm"] = $arrayContent['fMaxPercent']/100*$arrayContent['corde'];
+    
     return $arrayContent;
 }
 
@@ -65,30 +70,37 @@ function addParametre($arrayContent){
     $date = new DateTime();
 
     if($arrayContent['exist'] != 'false'){
-
         $db->execute("DELETE * FROM cambrure");
-        $db->execute("UPDATE parametre SET `libelle` = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
+        $db->execute("UPDATE parametre SET `libelle` = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, intradosColor = :intradosColor, extradosColor = :extradosColor WHERE id = :id ",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxPercent']/100*$arrayContent['corde'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxPercent']/100*$arrayContent['corde'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor'], "id"=>$arrayContent['exist']));
 
+        $naca = new Naca($db,$arrayContent['exist']);
     }
     else{
-        $db->execute("INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :intradosColor, :extradosColor)",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxmm'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxmm'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor']));
+        $db->execute("INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :intradosColor, :extradosColor)",array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxPercent']/100*$arrayContent['corde'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxPercent']/100*$arrayContent['corde'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>$arrayContent['fic_img'], "fic_csv"=>$arrayContent['fic_csv'], "intradosColor"=>$arrayContent['intradosColor'], "extradosColor"=>$arrayContent['extradosColor']));
+
+        $id = $db->execute("SELECT id FROM parametre WHERE fic_img = '".$arrayContent["fic_img"]."'")[0]["id"];
+
+        $naca = new Naca($db,$id);
     }
+
+    return $arrayContent;
 }
 
 //ADRIEN
 //fonction de synthèse
 function form($form){
-
-    if(formChecking($form)){
-        addParametre(formPurify($form));
-        //Retour accueil
-        header('Location: /ProjetPHP');
-        echo $form['exist'];
-    }
-    else{
-        echo 'Aucun champ du formulaire ne doit être vide.<br>';
-        echo '<form> <input type="button" value="Retour au formulaire" onclick="history.go(-1)"> </form>';
-    }
+  if(formChecking($form)){
+    $array = addParametre(formPurify($form));
+    //Retour accueil
+    header('Location: ../');
+}
+ else{
+   echo '<script type="text/javascript" src="../js/jquery.min.js" defer></script>'+
+     '<script type="text/javascript" src="../js/bootstrap.js" defer></script>'+
+     '<script type="text/javascript" src="../js/headerFooter.js" defer></script>';
+   echo 'Aucun champ du formulaire ne doit être vide.<br>';
+   echo '<form> <input type="button" value="Retour au formulaire" onclick="history.go(-1)"> </form>';
+ }
 }
 
 form($_POST);

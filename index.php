@@ -3,7 +3,7 @@
   <head>
 <!-- Meta tags -->
   <meta charset="utf-8" />
-   <meta name="author" content="Febvre_Lebourgeois" />
+   <meta name="author" content="Lebourgeois_Febvre" />
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    
    <!-- Title -->
@@ -33,8 +33,8 @@
       $array = $db->execute("SELECT id, fic_img FROM parametre");
 
       foreach($array as $params){
-        $naca = new Naca($db, $params['id'],true);
-        echo '<a href="php/showDetails.php?id='.$params['id'].'"><img src="'.$params['fic_img'].'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
+        $naca = new Naca($db, $params['id']);
+        echo '<a href="php/showDetails.php?id='.$naca->getParametres()->getId().'"><img src="'.$naca->getParametres()->getFic_img().'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
       }
 
 

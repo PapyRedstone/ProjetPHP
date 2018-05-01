@@ -1,12 +1,11 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
-require_once ('jpgraph-4.2.0/jpgraph.php');
-require_once ('jpgraph-4.2.0/jpgraph_line.php');
+require_once '../jpgraph-4.2.0/jpgraph.php';
+require_once '../jpgraph-4.2.0/jpgraph_line.php';
 
 //ALEXANDRE ADRIEN
 class Naca{
-  private $id;
   private $Yg;
   private $Xg;
   private $parametre;
@@ -14,10 +13,9 @@ class Naca{
   private $db;
 
   function __construct($db, $id, $force = false){
-    $this->id = $id;
     $this->db = $db;
-    $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
 
+    $r = $this->db->execute("SELECT * FROM parametre WHERE id = $id",null,"Parametres");
 
     if(!isset($r[0])){
       error_log(' /!\ QUERY RESULT FOR "PARAMETRES" NUMBERED '.$id.' IS NULL /!\ ');
@@ -27,20 +25,32 @@ class Naca{
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
  
-    if(!isset($this->cambrures[0]) || $force){
-
-      $this->calculateCambrure($this->parametre->getId(),$this->parametre->getCorde(),$this->parametre->getTMaxmm(),$this->parametre->getFMaxmm(),$this->parametre->getNbPoints());
+    if(!isset($this->cambrures[0]) || $force){//'$force' permet de forcer la création du graphique et c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
+      $this->calculateCambrure();
+      $this->createCSV();
+      $this->drawGraph(800);
     }
-      $this->createCSV($force);
-      $this->drawGraph(800, $force);
+  }
+
+  function getParametres(){
+    return $this->parametre;
+  }
+
+  function getCambrures(){
+    return $this->cambrures;
   }
 
   function getT($X,$tmmm){
     return -(1.015*pow($X,4)-2.843*pow($X,3)+3.516*pow($X,2)+1.26*$X-2.969*sqrt($X))*$tmmm;
   }
 
-  function calculateCambrure($id,$c,$tmmm,$fmmm,$nb_points){
-
+  function calculateCambrure(){
+    $id = $this->parametre->getId();
+    $c = $this->parametre->getCorde();
+    $tmmm = $this->parametre->getTMaxmm();
+    $fmmm = $this->parametre->getfMaxmm();
+    $nb_points = $this->parametre->getNbPoints();
+    
     $dX = $c/$nb_points;
     $sommedS = 0;
     $sommedXdS = 0;
@@ -59,12 +69,14 @@ class Naca{
     }
     $Xg = $sommedXdS / $sommedS;
 
+
+    $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = ".$id,null,"Cambrure");
   }
 
 //ADRIEN
-  function createCSV($force = false){
+  function createCSV(){
 
-    if(!file_exists($this->parametre->getFic_csv()) || $force){
+    if(!file_exists($this->parametre->getFic_csv())){
 
       $csvFile = fopen($this->parametre->getFic_csv(), "w");
       foreach($this->cambrures as $line){
@@ -76,9 +88,9 @@ class Naca{
   }
 
 //ADRIEN
-  function drawGraph($size, $force = false){
+  function drawGraph($size){
 
-    if(!file_exists($this->parametre->getFic_img()) || $force){ //'$force' permet de forcer la création du graphique et c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
+    if(!file_exists($this->parametre->getFic_img())){ 
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();

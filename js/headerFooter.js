@@ -8,9 +8,13 @@ function winLoad(){
 	'<li class="nav-item active">'+
 	'<a class="nav-link" href="/ProjetPHP/index.php">Accueil <span class="sr-only">(current)</span></a>'+
 	'</li>'+
-	'<li class="nav-item">'+
-	'<a class="nav-link" href="../ProjetPHP/html/form.html">Ajouter un profil</a>'+
-	'</li>'+
+	'<li class="nav-item">';
+    if((document.location.href).includes("html")){
+	header += '<a class="nav-link" href="form.html">Ajouter un profil</a>';
+    }else{
+	header += '<a class="nav-link" href="html/form.html">Ajouter un profil</a>';
+    }
+    header += '</li>'+
 	'</ul>'+
 	'</div>'+
 	'</nav>';
