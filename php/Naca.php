@@ -61,7 +61,7 @@ class Naca{
       $yI = $f-$t/2;
       $yE = $f+$t/2;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:G, null, null)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"G"=>$x+$dX/2));
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:G)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"G"=>$x+$dX/2));
       $dS = $dX*$this->getT($X+$dX/2,$tmmm);
 
       $sommedS += $dS;

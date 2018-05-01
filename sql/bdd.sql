@@ -35,6 +35,7 @@ CREATE TABLE cambrure(
     yIntrados FLOAT NOT NULL,
     yExtrados FLOAT NOT NULL,
     igX FLOAT NOT NULL,
+    igY FLOAT NOT NULL,
 
     PRIMARY KEY(id),
     FOREIGN KEY(idParam) REFERENCES parametre(id)
