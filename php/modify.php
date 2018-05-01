@@ -10,7 +10,7 @@
     <!-- Title -->
         <title>Nacalculator</title>
 
-        <link href="../css\bootstrap.css" rel="stylesheet">
+        <link href="../css/bootstrap.css" rel="stylesheet">
 
     <!-- Js Scripts -->
 

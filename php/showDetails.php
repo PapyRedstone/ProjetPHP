@@ -45,7 +45,7 @@
     echo '<a href ="../'.$parametres[0]->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
     
     echo '<a href ="../php/modify.php?id='.$_GET['id'].'" > <button type="button"> Modifier le profil </button> </a>';
-    echo '<a href ="../'.$parametres[0]->getFic_img().'" > <button type="button"> Supprimer le profil </button> </a>';
+    echo '<a href ="../php/delete.php?id='.$_GET['id'].'&sure=false" > <button type="button"> Supprimer le profil </button> </a>';
 
 ?>
 
