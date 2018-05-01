@@ -9,8 +9,7 @@ class Cambrure {
   private $yExtrados;
   private $idParam;
   private $igX;
-  private $xGDot;
-  private $yGDot;
+  private $igY;
 
   function __toString(){
     return "x= $this->x, f(x) = $this->f, t(x) = $this->t, Yintra = $this->yIntrados, Yextra = $this->yExtrados, Igx = $this->igX";
