@@ -22,7 +22,7 @@ if($_GET['sure'] == 'true'){
     $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$_GET['id']));
     $db->execute("DELETE FROM parametre WHERE id = :id", array("id"=>$_GET['id']));
     //Retour accueil
-    header('Location: /ProjetPHP');
+    header('Location: ../');
 }
 else{
     echo 'Etes vous sûr de vouloir supprimer l\'enregistrement ?<br><br>';
