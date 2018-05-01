@@ -98,7 +98,7 @@ function form($form){
   if(formChecking($form)){
     $array = addParametre(formPurify($form));
     //Retour accueil
-    header('Location: ../');
+    //    header('Location: ../');
 }
  else{
    echo '<script type="text/javascript" src="../js/jquery.min.js" defer></script>'+
