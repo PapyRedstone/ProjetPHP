@@ -1,8 +1,8 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
-require_once '../jpgraph-4.2.0/jpgraph.php';
-require_once '../jpgraph-4.2.0/jpgraph_line.php';
+require_once 'jpgraph-4.2.0/jpgraph.php';
+require_once 'jpgraph-4.2.0/jpgraph_line.php';
 
 //ALEXANDRE ADRIEN
 class Naca{
@@ -69,7 +69,7 @@ class Naca{
       $sumdXdS += ($x + $dX/2) * $dSi;
       $sumdYdS += $f * $dSi;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg,:yg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>end($arraydXgi),"yg"=>end($arraydYgi)));
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$dX * pow($f,3)/12));
     }
 
     $this->Xg = $sumdXdS / $sumdS;
@@ -112,8 +112,8 @@ class Naca{
 
         $i++;
       }
-      //$arrayYgDot = $cambrure->getYgDot();
-      //$arrayXgDot = $cambrure->getXgDot();
+      $arrayYgDot[] = $this->Yg;
+      $arrayXgDot[] = $this->Xg;
 
       //GRAPHIQUE
       $graph = new Graph($size, 0.4*$size);//le ratio est de 0,4 entre la hauteur et la largeur
@@ -147,7 +147,7 @@ class Naca{
       $p2->SetLegend('Y Intrados');
 
       // Point G
-      /*
+      
       $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
       $graph->Add($p3);
       //$p3->SetColor('#FF0000');
@@ -155,7 +155,7 @@ class Naca{
       $p3->mark->SetType(MARK_X,'',100);
       //$p3->mark->SetFillColor('#FF0000');
       $p3->SetLegend('Centre de gravité');
-      */
+      
       $graph->legend->SetFrameWeight(1);
 
       // Stockage de l'image
