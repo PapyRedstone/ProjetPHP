@@ -39,7 +39,7 @@
             echo' Nombre de points : <input type="text" name="nbPoints" value="'.$parametres[0]->getNbPoints().'"><br><br>';
             echo 'Couleur de la courbe Y Intrados : <input type="color" name="intradosColor" value="'.$parametres[0]->getIntradosColor().'"><br>';
             echo 'Couleur de la courbe Y Extrados : <input type="color" name="extradosColor" value="'.$parametres[0]->getExtradosColor().'"><br><br>';
-            echo '<input type="hidden" name="exist" value="true">';
+            echo '<input type="hidden" name="exist" value="'.$_GET['id'].'">';
             echo '<input type="submit" value="Valider"/><br>';
             echo '</form>';
         ?>
