@@ -9,7 +9,7 @@ function winLoad(){
 	'<a class="nav-link" href="/ProjetPHP/index.php">Accueil <span class="sr-only">(current)</span></a>'+
 	'</li>'+
 	'<li class="nav-item">'+
-	'<a class="nav-link" href="../ProjetPHP/html/form.html">Ajouter un profil</a>'+
+	'<a class="nav-link" href="/ProjetPHP/html/form.html">Ajouter un profil</a>'+
 	'</li>'+
 	'</ul>'+
 	'</div>'+
