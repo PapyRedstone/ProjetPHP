@@ -17,7 +17,7 @@ function winLoad(){
     
     $("header").html(header);
 
-    var footer = '<div class="navbar navbar-expand-lg navbar-light bg-light" style="position: absolute;bottom :0px; width:100%;'+
+    var footer = '<div class="navbar navbar-expand-lg navbar-light bg-light">'+//partie supprimée : style="position: absolute;bottom :0px; width:100%;
 	'<div class="collapse navbar-collapse" id="navbarSupportedContent">'+
 	'<ul class="navbar-nav mr-auto">'+
 	'<li class="nav-item">'+
