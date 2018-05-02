@@ -13,8 +13,7 @@ class Parametres{
     private $date;
     private $fic_img;
     private $fic_csv;
-    private $intradosColor;
-    private $extradosColor;
+    private $color;
 
     function __toString()
     {
@@ -76,14 +75,9 @@ class Parametres{
         return $this->fic_csv;
     }
 
-    public function getIntradosColor(){
+    public function getColor(){
 
-        return $this->intradosColor;
-    }
-
-    public function getExtradosColor(){
-
-        return $this->extradosColor;
+        return $this->color;
     }
 }
 

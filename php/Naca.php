@@ -1,13 +1,8 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
-<<<<<<< HEAD
 require_once 'jpgraph-4.2.0/jpgraph.php';
 require_once 'jpgraph-4.2.0/jpgraph_line.php';
-=======
-require_once "../jpgraph-4.2.0/jpgraph.php";
-require_once "../jpgraph-4.2.0/jpgraph_line.php";
->>>>>>> f4742ccd4c0f00ecbe685818d83e85df63b1d641
 
 //ALEXANDRE ADRIEN
 class Naca{
@@ -75,6 +70,7 @@ class Naca{
       $sumdYdS += $f * $dSi;
 
       $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$dX * pow($f,3)/12));
+
     }
 
     $this->Xg = $sumdXdS / $sumdS;
@@ -85,7 +81,7 @@ class Naca{
 
 //ADRIEN
   function createCSV(){
-
+    
     if(!file_exists($this->parametre->getFic_csv())){
 
       $csvFile = fopen($this->parametre->getFic_csv(), "w");
@@ -94,7 +90,7 @@ class Naca{
         fputcsv($csvFile, $lineCSV, ';', '"');
       }
       fclose($csvFile);
-    }
+      }
   }
 
 //ADRIEN
@@ -104,8 +100,8 @@ class Naca{
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();
-      //$arrayXgDot = array();
-      //$arrayYgDot = array();
+      $arrayXgDot = array();
+      $arrayYgDot = array();
       $i=0;
 
       foreach($this->cambrures as $cambrure){
@@ -142,14 +138,14 @@ class Naca{
       // Première courbe
       $p1 = new LinePlot($arrayYextrados, $arrayX);
       $graph->Add($p1);
-      $p1->SetColor($this->parametre->getIntradosColor());
+      $p1->SetColor($this->parametre->getColor());
       $p1->SetLegend('Y Extrados');
 
       // Deuxième courbe
       $p2 = new LinePlot($arrayYintrados, $arrayX);
       $graph->Add($p2);
-      $p2->SetColor($this->parametre->getExtradosColor());
-      $p2->SetLegend('Y Intrados');
+      $p2->SetColor($this->parametre->getColor());
+      $p2->SetLegend('Y Intrados');y
 
       // Point G
       
