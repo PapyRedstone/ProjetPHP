@@ -63,7 +63,7 @@ function formPurify($formArray){
     return $arrayContent;
 }
 
-//ADRIEN
+//ALEXANDRE ADRIEN 
 //Envoie la version purifiée des données saisies dans le formulaire
 function addParametre($arrayContent){
 

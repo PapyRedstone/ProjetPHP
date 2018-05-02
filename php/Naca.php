@@ -193,7 +193,7 @@ class Naca{
       $p3->mark->SetType(MARK_X,'',100);
       $p3->SetLegend('Centre de gravité');
       
-      //$graph->legend->SetFrameWeight(1);
+      $graph->legend->SetFrameWeight(1);
 
       // Stockage de l'image
       $graph->Stroke($this->parametre->getFic_img());
