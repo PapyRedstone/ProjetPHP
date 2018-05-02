@@ -3,7 +3,7 @@ window.onload = winLoad;
 
 function winLoad(){
     var header = '<nav class="navbar navbar-expand-lg navbar-light bg-light">'+
-	'<div class="collapse navbar-collapse" id="navbarSupportedContent">'+
+	'<div style="position: static; width:100%;" class="collapse navbar-collapse" id="navbarSupportedContent" >'+
 	'<ul class="navbar-nav mr-auto">'+
 	'<li class="nav-item active">';
     var htmlRegExp = /\/html\//;
