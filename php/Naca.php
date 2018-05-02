@@ -1,8 +1,13 @@
 <?php
 require "Parametres.php";
 require "Cambrure.php";
+<<<<<<< HEAD
 require_once 'jpgraph-4.2.0/jpgraph.php';
 require_once 'jpgraph-4.2.0/jpgraph_line.php';
+=======
+require_once "../jpgraph-4.2.0/jpgraph.php";
+require_once "../jpgraph-4.2.0/jpgraph_line.php";
+>>>>>>> f4742ccd4c0f00ecbe685818d83e85df63b1d641
 
 //ALEXANDRE ADRIEN
 class Naca{
