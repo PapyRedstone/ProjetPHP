@@ -38,7 +38,7 @@ $naca = new Naca($db,$_GET["id"]);
     echo 't maximum (%) : '.$naca->getParametres()->getTMaxPercent().'<br>';
     echo 'f maximum (mm) : '.$naca->getParametres()->getFMaxmm().'<br>';
 echo 'f maximum (%) : '.$naca->getParametres()->getFMaxPercent().'<br>';
-echo 'Igz : '.$naca->getIgX().'<br>';
+echo 'Igz (mm<sup>4</sup>): '.$naca->getIgX().'<br>';
 echo 'Surface(mm²) : '.$naca->getS().'<br>';
     echo 'Nombre de points : '.$naca->getParametres()->getNbPoints().'<br><br>';
 
