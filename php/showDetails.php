@@ -30,15 +30,16 @@
     require "Naca.php";
  
     $db = new Database();
-    $naca = new Naca($db,$_GET["id"]);
+$naca = new Naca($db,$_GET["id"]);
     
     echo '<img src="../'.$naca->getParametres()->getFic_img().'"><br>';
     echo 'Corde (mm): '.$naca->getParametres()->getCorde().'<br>';
     echo 't maximum (mm) : '.$naca->getParametres()->getTMaxmm().'<br>';
     echo 't maximum (%) : '.$naca->getParametres()->getTMaxPercent().'<br>';
     echo 'f maximum (mm) : '.$naca->getParametres()->getFMaxmm().'<br>';
-    echo 'f maximum (%) : '.$naca->getParametres()->getFMaxPercent().'<br>';
-    echo 'Igz : '.$naca->getIgX().'<br>';
+echo 'f maximum (%) : '.$naca->getParametres()->getFMaxPercent().'<br>';
+echo 'Igz : '.$naca->getIgX().'<br>';
+echo 'Surface : '.$naca->getS().'<br>';
     echo 'Nombre de points : '.$naca->getParametres()->getNbPoints().'<br><br>';
 
     echo 'Télécharger : ';

@@ -9,6 +9,7 @@ class Naca{
   private $Yg;
   private $Xg;
   private $IgX;
+  private $S;
   private $parametre;
   private $cambrures;
   private $db;
@@ -26,12 +27,12 @@ class Naca{
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = $id",null,"Cambrure");
  
-    if(!isset($this->cambrures[0]) || $force){//'$force' permet de forcer la création du graphique et c'est en cas de modification que la création du graphique est forcée, donc le graphique existe déjà
+    if(!isset($this->cambrures[0]) || $force){//'$force' permet de forcer la generation des points
       $this->calculateCambrure();
       $this->createCSV();
       $this->drawGraph(800);
-      $this->calculateIgz();
     }
+    $this->calculateIgz();
   }
 
   function getParametres(){
@@ -44,6 +45,10 @@ class Naca{
 
   function getIgX(){
     return $this->IgX;
+  }
+
+  function getS(){
+    return $this->S;
   }
 
   function getT($X,$tmmm){
@@ -89,7 +94,7 @@ class Naca{
 
   function calculateIgz(){
     $dX = $this->parametre->getCorde()/$this->parametre->getNbPoints();
-    $sumIgzdS = 0;
+    $sumIgz = 0;
     $S = 0;
     $c = $this->parametre->getCorde();
     $tmmm = $this->parametre->getTMaxmm();
@@ -101,11 +106,12 @@ class Naca{
       $yI = $cambrure->getYintrados();
 
       $S += $dSi;
-      
-      $sumIgzdS += $dSi * ($cambrure->getIgX() - $dSi * pow(($yE+$yI)/2 - $this->Yg,2));
+
+      $sumIgz += $cambrure->getIgX() + $dSi * pow(($yE+$yI)/2 - $this->Yg,2);
     }
 
-    $this->IgX = $sumIgzdS / $S;
+    $this->IgX = $sumIgz;
+    $this->S = $S;
   }
 
 //ADRIEN
@@ -125,7 +131,7 @@ class Naca{
 //ADRIEN
   function drawGraph($size){
 
-  if(!file_exists($this->parametre->getFic_img())){ 
+    if(!file_exists($this->parametre->getFic_img())){ 
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();
@@ -187,7 +193,7 @@ class Naca{
 
       // Stockage de l'image
       $graph->Stroke($this->parametre->getFic_img());
-      }
+    }
   }
 }
 ?>
