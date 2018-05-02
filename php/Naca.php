@@ -5,6 +5,7 @@ require_once 'jpgraph-4.2.0/jpgraph.php';
 require_once 'jpgraph-4.2.0/jpgraph_line.php';
 
 //ALEXANDRE ADRIEN
+//Class representant un rpofli naca
 class Naca{
   private $Yg;
   private $Xg;
@@ -59,6 +60,7 @@ class Naca{
     return -4*(pow($X,2)-$X)*$fmmm;
   }
 
+  //calcul et rempli la table cambrure
   function calculateCambrure(){
     $id = $this->parametre->getId();
     $c = $this->parametre->getCorde();
@@ -79,6 +81,7 @@ class Naca{
 
       $dSi = $dX*$this->getT(($x+$dX/2)/$c,$tmmm);
 
+      //utiliser pour le calcul de la position de g
       $sumdS += $dSi;
       $sumXgdS += ($x + $dX/2) * $dSi;
       $sumYgdS += abs($yE+$yI)/2 * $dSi;
@@ -92,6 +95,7 @@ class Naca{
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = ".$id,null,"Cambrure");
   }
 
+  //calcul Igz
   function calculateIgz(){
     $dX = $this->parametre->getCorde()/$this->parametre->getNbPoints();
     $sumIgz = 0;
