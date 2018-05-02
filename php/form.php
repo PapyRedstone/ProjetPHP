@@ -49,7 +49,7 @@ function formPurify($formArray){
                 if($c == '.' && !$firstOccurrence){
                     $firstOccurrence = true;
                 }
-                else if($key != 'color' && $key != 'libelle' && $key != 'exist'){
+                else if($key != 'color' && $key != 'libelle' && $key != 'id'){
                     $arrayContent[$key][$i] = '';
                 }
             }
@@ -71,18 +71,18 @@ function addParametre($arrayContent){
     $date = new DateTime();
 
     //S'il s'agit de la modification d'un enregistrement existant:
-    if($arrayContent['exist'] != 'false'){
-        deleteFiles($db);
+    if($arrayContent['id'] != 'false'){
+      deleteFiles($db,$arreyContent['id']);
         //Suppression des anciens point calculés
-        $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$arrayContent['exist']));
+        $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$arrayContent['id']));
         //Modification des parametres de en BDD
         $query = "UPDATE parametre SET libelle = :libelle, corde = :corde, tMaxmm = :tMaxmm, tMaxPercent = :tMaxPercent, fMaxmm = :fMaxmm, fMaxPercent = :fMaxPercent, nbPoints = :nbPoints, date = :date, fic_img = :fic_img, fic_csv = :fic_csv, color = :color WHERE id = :id";
 
-        $data = array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxPercent']/100*$arrayContent['corde'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxPercent']/100*$arrayContent['corde'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>"../".$arrayContent['fic_img'], "fic_csv"=>"../".$arrayContent['fic_csv'], "color"=>$arrayContent['color'],"id"=>$arrayContent['exist']);
+        $data = array("libelle"=>$arrayContent['libelle'], "corde"=>$arrayContent['corde'], "tMaxmm"=>$arrayContent['tMaxPercent']/100*$arrayContent['corde'], "tMaxPercent"=>$arrayContent['tMaxPercent'], "fMaxmm"=>$arrayContent['fMaxPercent']/100*$arrayContent['corde'], "fMaxPercent"=>$arrayContent['fMaxPercent'], "nbPoints"=>$arrayContent['nbPoints'], "date"=>$date->format('Y-m-d H:i:s'), "fic_img"=>"../".$arrayContent['fic_img'], "fic_csv"=>"../".$arrayContent['fic_csv'], "color"=>$arrayContent['color'],"id"=>$arrayContent['id']);
 
         $db->query($query,$data);
         
-        $naca = new Naca($db,$arrayContent['exist'],true);
+        $naca = new Naca($db,$arrayContent['id'],true);
     }
     else{
       $query = "INSERT INTO parametre VALUES (null,:libelle, :corde, :tMaxmm, :tMaxPercent, :fMaxmm, :fMaxPercent, :nbPoints, :date, :fic_img, :fic_csv, :color)";

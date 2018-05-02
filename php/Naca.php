@@ -120,7 +120,7 @@ class Naca{
       $graph = new Graph($size, 0.4*$size);//le ratio est de 0,4 entre la hauteur et la largeur
       $graph->SetScale("intlin", 0, 0, 0, $arrayX[$i-1]);
       $graph->SetShadow();
-      $theme_class=new UniversalTheme;
+      $theme_class=new UniversalTheme();
 
       $graph->SetTheme($theme_class);
       $graph->img->SetAntiAliasing();
@@ -145,17 +145,17 @@ class Naca{
       $p2 = new LinePlot($arrayYintrados, $arrayX);
       $graph->Add($p2);
       $p2->SetColor($this->parametre->getColor());
-      $p2->SetLegend('Y Intrados');y
+      $p2->SetLegend('Y Intrados');
 
       // Point G
-      
+      /*
       $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
       $graph->Add($p3);
-      //$p3->SetColor('#FF0000');
+      $p3->SetColor('#FF0000');
       $p3->setWeight(5);
       $p3->mark->SetType(MARK_X,'',100);
       //$p3->mark->SetFillColor('#FF0000');
-      $p3->SetLegend('Centre de gravité');
+      $p3->SetLegend('Centre de gravité');*/
       
       $graph->legend->SetFrameWeight(1);
 

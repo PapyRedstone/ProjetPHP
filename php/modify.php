@@ -32,14 +32,11 @@
             echo '<form action="../php/form.php" method="POST">';
             echo 'Libelle : <input type="text" name="libelle" value="'.$parametres[0]->getLibelle().'"><br>';
             echo 'Corde (mm): <input type="text" name="corde" value="'.$parametres[0]->getCorde().'"><br><br>';
-            echo 't maximum (mm) : <input type="text" name="tMaxmm" value="'.$parametres[0]->getTMaxmm().'"><br>';
             echo 't maximum (%) : <input type="text" name="tMaxPercent" value="'.$parametres[0]->getTMaxPercent().'"><br><br>';
-            echo 'f maxium (mm) : <input type="text" name="fMaxmm" value="'.$parametres[0]->getFMaxmm().'"><br>';
             echo 'f maximum (%) : <input type="text" name="fMaxPercent" value="'.$parametres[0]->getFMaxPercent().'"><br><br>';
             echo' Nombre de points : <input type="text" name="nbPoints" value="'.$parametres[0]->getNbPoints().'"><br><br>';
-            echo 'Couleur de la courbe Y Intrados : <input type="color" name="intradosColor" value="'.$parametres[0]->getIntradosColor().'"><br>';
-            echo 'Couleur de la courbe Y Extrados : <input type="color" name="extradosColor" value="'.$parametres[0]->getExtradosColor().'"><br><br>';
-            echo '<input type="hidden" name="exist" value="'.$_GET['id'].'">';//Champ caché permettant de définir le numéro d'enregistre en cours de modification
+            echo 'Couleur du profil : <input type="color" name="color" value="'.$parametres[0]->getColor().'"><br><br>';
+            echo '<input type="hidden" name="id" value="'.$_GET['id'].'">';//Champ caché permettant de définir le numéro d'enregistre en cours de modification
             echo '<input type="submit" value="Valider"/><br>';
             echo '</form>';
         ?>

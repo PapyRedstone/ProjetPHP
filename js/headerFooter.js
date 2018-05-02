@@ -16,7 +16,7 @@ function winLoad(){
     header += '</li>'+
 	'<li class="nav-item">';
     if((document.location.href).search(htmlRegExp) != -1 || (document.location.href).search(phpRegExp) != -1){
-	header += '<a class="nav-link" href="form.html">Ajouter un profil</a>';
+	header += '<a class="nav-link" href="../html/form.html">Ajouter un profil</a>';
     }else{
 	header += '<a class="nav-link" href="html/form.html">Ajouter un profil</a>';
     }
