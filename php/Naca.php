@@ -8,6 +8,7 @@ require_once 'jpgraph-4.2.0/jpgraph_line.php';
 class Naca{
   private $Yg;
   private $Xg;
+  private $IgX;
   private $parametre;
   private $cambrures;
   private $db;
@@ -29,6 +30,7 @@ class Naca{
       $this->calculateCambrure();
       $this->createCSV();
       $this->drawGraph(800);
+      $this->calculateIgz();
     }
   }
 
@@ -40,8 +42,16 @@ class Naca{
     return $this->cambrures;
   }
 
+  function getIgX(){
+    return $this->IgX;
+  }
+
   function getT($X,$tmmm){
     return -(1.015*pow($X,4)-2.843*pow($X,3)+3.516*pow($X,2)+1.26*$X-2.969*sqrt($X))*$tmmm;
+  }
+
+  function getF($X,$fmmm){
+    return -4*(pow($X,2)-$X)*$fmmm;
   }
 
   function calculateCambrure(){
@@ -53,30 +63,47 @@ class Naca{
     
     $dX = $c/$nb_points;
     $sumdS = 0;
-    $sumdXdS = 0;
-    $sumdYdS = 0;
+    $sumXgdS = 0;
+    $sumYgdS = 0;
 
-    for($x=0;$x<=$c;$x+=$dX){
-      $X = $x/$c;
-      $t = $this->getT($X,$tmmm);
-      $f = -4*(pow($X,2)-$X)*$fmmm;
+    for($x = 0; $x <= $c ; $x += $dX){
+      $t = $this->getT($x/$c,$tmmm);
+      $f = $this->getF($x/$c,$fmmm);
       $yI = $f-$t/2;
       $yE = $f+$t/2;
 
-      $dSi = $dX*$this->getT($X+$dX/2,$tmmm);
+      $dSi = $dX*$this->getT(($x+$dX/2)/$c,$tmmm);
 
       $sumdS += $dSi;
-      $sumdXdS += ($x + $dX/2) * $dSi;
-      $sumdYdS += $f * $dSi;
+      $sumXgdS += ($x + $dX/2) * $dSi;
+      $sumYgdS += abs($yE+$yI)/2 * $dSi;
 
-      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:xg)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"xg"=>$dX * pow($f,3)/12));
-
+      $this->db->execute("INSERT INTO cambrure VALUES (null,:x,:t,:f,:idP,:yi,:ye,:Igx)",array("x"=>$x,"t"=>$t,"f"=>$f,"idP"=>$id,"yi"=>$yI,"ye"=>$yE,"Igx"=>$dX * pow(abs($yE-$yI),3)/12));
     }
 
-    $this->Xg = $sumdXdS / $sumdS;
-    $this->Yg = $sumdYdS / $sumdS;
+    $this->Xg = $sumXgdS / $sumdS;
+    $this->Yg = $sumYgdS / $sumdS;
 
     $this->cambrures = $this->db->execute("SELECT * FROM cambrure WHERE idParam = ".$id,null,"Cambrure");
+  }
+
+  function calculateIgz(){
+    $dX = $this->parametre->getCorde()/$this->parametre->getNbPoints();
+    $sumIgzdS = 0;
+    $S = 0;
+
+    foreach($this->cambrures as $cambrure){
+      $dSi = $dX*$this->getT(($cambrure->getX()+$dX/2)/$c,$this->parametre->getTMaxmm());
+      $S += $dSi;
+    }
+    
+    foreach($this->cambrures as $cambrure){
+      $dSi = $dX*$this->getT(($cambrure->getX()+$dX/2)/$c,$this->parametre->getTMaxmm());
+
+      $sumIgzdS += $dSi * ($cambrure->getIgX() - $S * pow(abs(abs($cambrure->getYextrados+$cambrure->getYintrados)/2 - $this->Yg),2));
+    }
+
+    $this->IgX = $sumIgzdS / $S;
   }
 
 //ADRIEN
@@ -96,7 +123,7 @@ class Naca{
 //ADRIEN
   function drawGraph($size){
 
-    if(!file_exists($this->parametre->getFic_img())){ 
+  if(!file_exists($this->parametre->getFic_img())){ 
       $arrayX = array();
       $arrayYextrados = array();
       $arrayYintrados = array();
@@ -150,17 +177,15 @@ class Naca{
       // Point G
       $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
       $graph->Add($p3);
-      $p3->SetColor('#FF0000');
       $p3->setWeight(5);
       $p3->mark->SetType(MARK_X,'',100);
-      //$p3->mark->SetFillColor('#FF0000');
       $p3->SetLegend('Centre de gravité');
       
       //$graph->legend->SetFrameWeight(1);
 
       // Stockage de l'image
       $graph->Stroke($this->parametre->getFic_img());
-    }
+      }
   }
 }
 ?>

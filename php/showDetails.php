@@ -27,22 +27,23 @@
     //Permet de télécharger le fichier CSV et les images des graphiques
     //Permet d'acceder à la page de modification ou de supprimer un enregistrement
     require 'database.php';
-    require "Parametres.php";
-
+    require "Naca.php";
+ 
     $db = new Database();
-    $parametres = $db->execute('SELECT * FROM parametre WHERE id = '.$_GET['id'],null,"Parametres");
+    $naca = new Naca($db,$_GET["id"]);
     
-    echo '<img src="../'.$parametres[0]->getFic_img().'"><br>';
-    echo 'Corde (mm): '.$parametres[0]->getCorde().'<br>';
-    echo 't maximum (mm) : '.$parametres[0]->getTMaxmm().'<br>';
-    echo 't maximum (%) : '.$parametres[0]->getTMaxPercent().'<br>';
-    echo 'f maximum (mm) : '.$parametres[0]->getFMaxmm().'<br>';
-    echo 'f maximum (%) : '.$parametres[0]->getFMaxPercent().'<br>';
-    echo 'Nombre de points : '.$parametres[0]->getNbPoints().'<br><br>';
+    echo '<img src="../'.$naca->getParametres()->getFic_img().'"><br>';
+    echo 'Corde (mm): '.$naca->getParametres()->getCorde().'<br>';
+    echo 't maximum (mm) : '.$naca->getParametres()->getTMaxmm().'<br>';
+    echo 't maximum (%) : '.$naca->getParametres()->getTMaxPercent().'<br>';
+    echo 'f maximum (mm) : '.$naca->getParametres()->getFMaxmm().'<br>';
+    echo 'f maximum (%) : '.$naca->getParametres()->getFMaxPercent().'<br>';
+    echo 'Igz : '.$naca->getIgX().'<br>';
+    echo 'Nombre de points : '.$naca->getParametres()->getNbPoints().'<br><br>';
 
     echo 'Télécharger : ';
-    echo '<a href ="../'.$parametres[0]->getFic_csv().'" download> <button type="button"> Fichier CSV </button> </a>';
-    echo '<a href ="../'.$parametres[0]->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
+    echo '<a href ="../'.$naca->getParametres()->getFic_csv().'" download> <button type="button"> Fichier CSV </button> </a>';
+    echo '<a href ="../'.$naca->getParametres()->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
     
     echo '<a href ="../php/modify.php?id='.$_GET['id'].'" > <button type="button"> Modifier le profil </button> </a>';
     echo '<a href ="../php/deleteProfil.php?id='.$_GET['id'].'&sure=false" > <button type="button"> Supprimer le profil </button> </a>';
