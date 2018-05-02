@@ -91,16 +91,18 @@ class Naca{
     $dX = $this->parametre->getCorde()/$this->parametre->getNbPoints();
     $sumIgzdS = 0;
     $S = 0;
+    $c = $this->parametre->getCorde();
+    $tmmm = $this->parametre->getTMaxmm();
 
     foreach($this->cambrures as $cambrure){
-      $dSi = $dX*$this->getT(($cambrure->getX()+$dX/2)/$c,$this->parametre->getTMaxmm());
+      $dSi = $dX*$this->getT(($cambrure->getX()+$dX/2)/$c,$tmmm);
+
+      $yE = $cambrure->getYextrados();
+      $yI = $cambrure->getYintrados();
+
       $S += $dSi;
-    }
-    
-    foreach($this->cambrures as $cambrure){
-      $dSi = $dX*$this->getT(($cambrure->getX()+$dX/2)/$c,$this->parametre->getTMaxmm());
-
-      $sumIgzdS += $dSi * ($cambrure->getIgX() - $S * pow(abs(abs($cambrure->getYextrados+$cambrure->getYintrados)/2 - $this->Yg),2));
+      
+      $sumIgzdS += $dSi * ($cambrure->getIgX() - $dSi * pow(($yE+$yI)/2 - $this->Yg,2));
     }
 
     $this->IgX = $sumIgzdS / $S;

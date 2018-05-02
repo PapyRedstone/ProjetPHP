@@ -43,7 +43,7 @@
 
     echo 'Télécharger : ';
     echo '<a href ="../'.$naca->getParametres()->getFic_csv().'" download> <button type="button"> Fichier CSV </button> </a>';
-    echo '<a href ="../'.$naca->getParametres()->getFic_img().'" download> <button type="button"> Profil NACA </button> </a><br><br><br>';
+    echo '<a href ="../'.$naca->getParametres()->getFic_img().'" download> <button type="button"> Image </button> </a><br><br><br>';
     
     echo '<a href ="../php/modify.php?id='.$_GET['id'].'" > <button type="button"> Modifier le profil </button> </a>';
     echo '<a href ="../php/deleteProfil.php?id='.$_GET['id'].'&sure=false" > <button type="button"> Supprimer le profil </button> </a>';
