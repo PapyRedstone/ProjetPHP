@@ -33,7 +33,7 @@
 
       foreach($array as $params){
         $naca = new Naca($db, $params['id']);
-        echo $naca->getParemetres()->getLibelle().'<br><a href="php/showDetails.php?id='.$naca->getParametres()->getId().'"><img src="'.$naca->getParametres()->getFic_img().'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
+        echo $naca->getParametres()->getLibelle().'<br><a href="php/showDetails.php?id='.$naca->getParametres()->getId().'"><img src="'.$naca->getParametres()->getFic_img().'" width = "'.$width.'" height = "'.$height.'"></a><br><br>';
       }
     ?>
 

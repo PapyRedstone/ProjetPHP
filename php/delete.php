@@ -10,15 +10,17 @@ function deleteFiles($db,$id){
     unlink($paths['fic_img']);
     chmod($paths['fic_csv'], 777);
     unlink($paths['fic_csv']);
+}
 
-    $db = new Database();
+function deleteCambrures($db,$id){
+  $db->execute("SET FOREIGN_KEY_CHECKS = 0");
+  $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$id));
+  $db->execute("SET FOREIGN_KEY_CHECKS = 1");    
+}
 
-    deleteFiles($db);
-    
-    //Il faut supprimer les points de cambrure avant les paramètres car ils dépendent de ces derniers
-    $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$id));
-    $db->execute("DELETE FROM parametre WHERE id = :id", array("id"=>$id));
-    
+function deleteFromBDD($db,$id){
+  deleteCambrures($db,$id);
+  $db->execute("DELETE FROM parametre WHERE id = :id", array("id"=>$id));
 }
 
 
