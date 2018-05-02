@@ -1,6 +1,6 @@
 <?php
 require_once 'database.php';
-//ADRIEN
+//ADRIEN ALEXANDRE
 function deleteFiles($db,$id){
 
     $paths = $db->execute('SELECT fic_img, fic_csv FROM parametre WHERE id = '.$id)[0];
