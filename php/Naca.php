@@ -148,16 +148,15 @@ class Naca{
       $p2->SetLegend('Y Intrados');
 
       // Point G
-      /*
       $p3 = new LinePlot($arrayYgDot, $arrayXgDot);
       $graph->Add($p3);
       $p3->SetColor('#FF0000');
       $p3->setWeight(5);
       $p3->mark->SetType(MARK_X,'',100);
       //$p3->mark->SetFillColor('#FF0000');
-      $p3->SetLegend('Centre de gravité');*/
+      $p3->SetLegend('Centre de gravité');
       
-      $graph->legend->SetFrameWeight(1);
+      //$graph->legend->SetFrameWeight(1);
 
       // Stockage de l'image
       $graph->Stroke($this->parametre->getFic_img());

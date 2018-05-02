@@ -72,7 +72,7 @@ function addParametre($arrayContent){
 
     //S'il s'agit de la modification d'un enregistrement existant:
     if($arrayContent['id'] != 'false'){
-      deleteFiles($db,$arreyContent['id']);
+      deleteFiles($db,$arrayContent['id']);
         //Suppression des anciens point calculés
         $db->execute("DELETE FROM cambrure WHERE idParam = :id", array("id"=>$arrayContent['id']));
         //Modification des parametres de en BDD

@@ -3,13 +3,13 @@ require_once 'database.php';
 //ADRIEN
 function deleteFiles($db,$id){
 
-    $paths = $db->execute('SELECT fic_img, fic_csv FROM parametre WHERE id = '.$id']);
+    $paths = $db->execute('SELECT fic_img, fic_csv FROM parametre WHERE id = '.$id)[0];
 
     //Suppression des fichiers liés aux enregistrements
-    chmod('../'.$paths[0]['fic_img'], 777);
-    unlink('../'.$paths[0]['fic_img']);
-    chmod('../'.$paths[0]['fic_csv'], 777);
-    unlink('../'.$paths[0]['fic_csv']);
+    chmod($paths['fic_img'], 777);
+    unlink($paths['fic_img']);
+    chmod($paths['fic_csv'], 777);
+    unlink($paths['fic_csv']);
 
     $db = new Database();
 
